@@ -435,11 +435,6 @@
 }
 
 .u-section-2 .u-btn-1 {
-  border-style: solid;
-  padding: 0;
-}
-
-.u-section-2 .u-btn-2 {
   background-image: none;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -718,7 +713,7 @@
 }
 
 .u-section-3 .u-text-10 {
-  margin: -86px 0 0 280px;
+  margin: -115px 0 45px 280px;
 }
 
 .u-section-3 .u-btn-1 {
@@ -2107,7 +2102,7 @@
 .u-section-7 .u-social-icons-1 {
   height: 52px;
   min-height: 16px;
-  width: 344px;
+  width: 428px;
   min-width: 164px;
   white-space: nowrap;
   margin: 34px auto 0;
@@ -2159,6 +2154,10 @@
 
   .u-section-7 .u-text-1 {
     font-size: 2.25rem;
+  }
+
+  .u-section-7 .u-social-icons-1 {
+    width: 410px;
   }
 }
 
@@ -2218,8 +2217,12 @@
   .u-section-7 .u-text-1 {
     font-size: 1.875rem;
   }
+
+  .u-section-7 .u-social-icons-1 {
+    width: 344px;
+  }
 } .u-section-8 {
-  background-image: linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url("images/gggg.jpg");
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('images/gggg.jpg');
   background-position: 50% 50%;
 }
 
