@@ -213,6 +213,10 @@
   .u-section-1 .u-text-1 {
     font-size: 3.75rem;
   }
+
+  .u-section-1 .u-text-2 {
+    font-size: 1.1111111111111112rem;
+  }
 }
 
 @media (max-width: 575px) {
@@ -1898,10 +1902,6 @@
 }
 
 .u-section-8 .u-btn-1 {
-  padding: 0;
-}
-
-.u-section-8 .u-btn-2 {
   background-image: none;
   text-transform: uppercase;
   letter-spacing: 3px;
