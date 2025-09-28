@@ -26,19 +26,36 @@
   <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/">
 
+  <!-- ===== Our additions (only) ===== -->
   <style>
-    /* Hide Nicepage's built-in banners; we'll show our own */
+    /* Hide Nicepage's built-in banners; we show our own inline status */
     .u-form-send-success, .u-form-send-error { display: none !important; }
 
-    /* Our inline status line */
+    /* Inline status line */
     #formStatus { display:none; margin-top:12px; font-size:14px; }
     #formStatus.ok  { color:#2e7d32; display:block; }
     #formStatus.err { color:#c62828; display:block; }
 
-    /* Hover: make submit text white (and force children too) */
-    .u-btn-1:hover, .u-btn-1:focus { color:#fff !important; }
-    .u-btn-1:hover *, .u-btn-1:focus * { color:#fff !important; }
+    /* Button default + hover so text is always visible */
+    a.u-btn-1{
+      background-color:#d9a441 !important; /* theme-ish gold */
+      color:#111 !important;
+      border:none !important;
+      transition:background-color .2s,color .2s;
+    }
+    a.u-btn-1:hover,
+    a.u-btn-1:focus{
+      background-color:#111 !important;  /* dark bg */
+      color:#fff !important;              /* white text */
+    }
+    a.u-btn-1:hover *,
+    a.u-btn-1:focus *{
+      color:#fff !important;
+      fill:#fff !important;
+      stroke:#fff !important;
+    }
   </style>
+  <!-- ===== end additions ===== -->
 </head>
 
 <body data-path-to-root="./" data-include-products="false" class="u-body u-xxl-mode" data-lang="en">
