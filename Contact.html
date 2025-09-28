@@ -151,39 +151,76 @@
 
           <!-- FORM SCRIPT -->
           <script>
-            (function () {
-              const form = document.getElementById('contactForm');
-              const ok   = form.querySelector('.u-form-send-success');
-              const err  = form.querySelector('.u-form-send-error');
-              const hp   = form.querySelector('input[name="company"]');
-              const ts   = form.querySelector('input[name="ts"]');
-              const show = (el, on) => { if (el) el.style.display = on ? 'block' : 'none'; };
-
-              // Set timestamp on load (time trap)
-              document.addEventListener('DOMContentLoaded', () => { ts.value = Date.now(); });
-
-              form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                show(ok, false); show(err, false);
-
-                // Honeypot must be empty
-                if ((hp.value || '').trim() !== '') { show(ok, true); form.reset(); ts.value = Date.now(); return; }
-                // Must take ≥ 4s to submit
-                if (Date.now() - Number(ts.value || 0) < 4000) { show(ok, true); form.reset(); ts.value = Date.now(); return; }
-
+          (function () {
+            const form = document.getElementById('contactForm');
+            const ok   = form.querySelector('.u-form-send-success');
+            const err  = form.querySelector('.u-form-send-error');
+            const hp   = form.querySelector('input[name="company"]');
+            const ts   = form.querySelector('input[name="ts"]');
+            const btn  = form.querySelector('button[type="submit"]');
+            const show = (el, on) => { if (el) el.style.display = on ? 'block' : 'none'; };
+        
+            // Ensure time-trap set on load
+            document.addEventListener('DOMContentLoaded', () => { ts.value = Date.now(); });
+        
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              show(ok, false); show(err, false);
+        
+              // Safety: set time-trap if somehow empty
+              if (!ts.value) ts.value = Date.now();
+        
+              // Honeypot must be empty
+              if ((hp.value || '').trim() !== '') {
+                console.log('Honeypot tripped — treating as success.');
+                show(ok, true); form.reset(); ts.value = Date.now(); alert('Ευχαριστούμε! Το μήνυμα εστάλη.'); return;
+              }
+              // Must take ≥ 4s to submit
+              if (Date.now() - Number(ts.value || 0) < 4000) {
+                console.log('Time trap: too fast — treating as success to avoid bot feedback.');
+                show(ok, true); form.reset(); ts.value = Date.now(); alert('Ευχαριστούμε! Το μήνυμα εστάλη.'); return;
+              }
+        
+              // UI: disable button while sending
+              const orig = btn.textContent;
+              btn.disabled = true;
+              btn.textContent = 'Αποστολή…';
+        
+              try {
+                console.log('Submitting to', form.action);
+                const data = new FormData(form);
+        
+                // Try fetch (no-cors) — request is sent even though the response is opaque
+                await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
+        
+                // Success UI
+                show(ok, true);
+                form.reset();
+                ts.value = Date.now();
+                alert('Ευχαριστούμε! Το μήνυμα εστάλη.');
+              } catch (ex) {
+                console.error('Fetch failed', ex);
+        
+                // Fallback: classic submit in new tab so you see Apps Script "OK"
                 try {
-                  const data = new FormData(form);
-                  await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
-                  show(ok, true);
-                  form.reset();
-                  ts.value = Date.now(); // reset trap for next submit
-                } catch (ex) {
-                  console.error('Form submit error', ex);
+                  console.log('Falling back to classic submit (new tab).');
+                  const prevTarget = form.getAttribute('target');
+                  form.setAttribute('target', '_blank');
+                  form.submit();
+                  if (prevTarget !== null) form.setAttribute('target', prevTarget); else form.removeAttribute('target');
+                } catch (ex2) {
+                  console.error('Fallback submit failed', ex2);
                   show(err, true);
+                  alert('Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.');
                 }
-              });
-            })();
-          </script>
+              } finally {
+                btn.disabled = false;
+                btn.textContent = orig;
+              }
+            });
+          })();
+        </script>
+
 
         </div>
       </div>
