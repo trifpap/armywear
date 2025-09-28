@@ -21,6 +21,17 @@
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
     <meta data-intl-tel-input-cdn-path="intlTelInput/">
+
+    <style>
+      /* confirmation line styles */
+      .u-form-send-success, .u-form-send-error { display:none; margin-top:12px }
+      #formStatus { margin-top: 12px; font-size: 14px; display:none; }
+      #formStatus.ok  { color: #2e7d32; display:block; }
+      #formStatus.err { color: #c62828; display:block; }
+
+      /* 3) hover: white font on submit button */
+      .u-btn-1:hover { color: #fff !important; }
+    </style>
 </head>
 <body data-path-to-root="./" data-include-products="false" class="u-body u-xxl-mode" data-lang="en">
   <header class="u-clearfix u-header u-white u-header" id="sec-1a30">
@@ -32,7 +43,7 @@
         <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 500;">
           <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
             <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
-            <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect></g></svg>
+            <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect></g></svg>
           </a>
         </div>
         <div class="u-custom-menu u-nav-container">
@@ -78,9 +89,9 @@
           <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-3"></h6>
 
           <div class="u-form u-form-1">
-            <form action="https://script.google.com/macros/s/AKfycbztD9SB6RqLlUJ2UV8Ve0qEuk-zz5iab3ywAKc-pm3I0CdbJouy6UjgpxGUnfEAT5-WYg/exec"
+            <form id="contactForm"
+                  action="https://script.google.com/macros/s/AKfycbztD9SB6RqLlUJ2UV8Ve0qEuk-zz5iab3ywAKc-pm3I0CdbJouy6UjgpxGUnfEAT5-WYg/exec"
                   method="POST"
-                  target="_blank"
                   class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form"
                   name="form"
                   style="padding: 0px;">
@@ -95,7 +106,9 @@
               </div>
               <div class="u-form-group u-form-partition-factor-2 u-form-phone u-form-group-3">
                 <label for="phone-84d9" class="u-label">Τηλέφωνο</label>
-                <input type="tel" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" id="phone-84d9" name="phone" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
+                <!-- 2) removed pattern to allow any format -->
+                <input type="tel" id="phone-84d9" name="phone" placeholder="Enter your phone"
+                       class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
               </div>
               <div class="u-form-address u-form-group u-form-partition-factor-2 u-form-group-4">
                 <label for="address-be2d" class="u-label">Διεύθυνση</label>
@@ -108,23 +121,23 @@
 
               <div class="u-align-center u-form-group u-form-submit">
                 <a href="#"
+                   id="submitBtn"
                    class="u-active-black u-border-none u-btn u-btn-submit u-button-style u-custom-font u-font-raleway u-hover-black u-palette-1-base u-text-active-black u-text-body-color u-text-hover-black u-btn-1"
                    data-animation-name="customAnimationIn"
                    data-animation-duration="1500"
                    data-animation-delay="500"
-                   role="button"
-                   onclick="event.preventDefault(); this.closest('form').submit();">
+                   role="button">
                   ΥΠΟΒΟΛΗ
                 </a>
                 <input type="submit" value="submit" class="u-form-control-hidden">
               </div>
 
+              <!-- 1) Inline confirmation line -->
+              <div id="formStatus" aria-live="polite"></div>
+
+              <!-- (keeping Nicepage default blocks hidden by CSS above) -->
               <div class="u-form-send-message u-form-send-success">Thank you! Your message has been sent.</div>
               <div class="u-form-send-error u-form-send-message">Unable to send your message. Please fix errors then try again.</div>
-
-              <!-- reCAPTCHA-related fields removed -->
-              <!-- <input type="hidden" value="" name="recaptchaResponse"> -->
-              <!-- <input type="hidden" name="formServices" value="d750fa8e-4776-8cf0-7e98-a09082119622"> -->
             </form>
           </div>
 
@@ -136,7 +149,7 @@
   <section class="u-align-center u-clearfix u-container-align-center u-image u-shading u-section-3" id="sec-7aaa" data-image-width="1980" data-image-height="1048">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <h2 class="u-align-center u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1500"> Θέλετε να φτιάξετε <br>το δικό σας brand; Μπορούμε να σας βοηθήσουμε!</h2>
-      <p class="u-align-center u-text u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1500"> Συζητάμε μαζί σας <br> και σας κάνουμε<br> προτάσεις που ανταποκρίνονται στις ανάγκες σας.</p>
+      <p class="u-align-center u-text u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1500"> Συζητάμε μαζί σας και σας κάνουμε προτάσεις που ανταποκρίνονται στις ανάγκες σας.</p>
       <a href="mailto:info@armywear.gr?subject=Επικοινωνία&body=Ένας χρήστης πάτησε το κουμπί 'ΞΕΚΙΝΗΣΤΕ ΣΗΜΕΡΑ'" class="u-active-white u-border-none u-btn u-btn-rectangle u-button-style u-custom-font u-font-raleway u-hover-white u-palette-1-base u-radius-0 u-text-active-black u-text-body-color u-text-hover-black u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">ΞΕΚΙΝΗΣΤΕ ΣΗΜΕΡΑ</a>
 
       <div class="u-border-3 u-border-grey-50 u-line u-line-horizontal u-line-1"></div>
@@ -180,6 +193,39 @@
       <a class="u-link" href="https://softexperia.com/" target="_blank" rel="nofollow"><span>Softexperia</span></a>
     </p>
   </section>
+
+  <!-- Submit handler: stay on page, show confirmation line -->
+  <script>
+    (function () {
+      const form   = document.getElementById('contactForm');
+      const button = document.getElementById('submitBtn');
+      const status = document.getElementById('formStatus');
+
+      const showOK  = (msg) => { status.textContent = msg; status.className = 'ok'; };
+      const showErr = (msg) => { status.textContent = msg; status.className = 'err'; };
+
+      // Make the link act like a button
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        form.requestSubmit();
+      });
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        showOK('Αποστολή…');
+
+        try {
+          const data = new FormData(form);
+          await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
+          showOK('Ευχαριστούμε! Το μήνυμά σας εστάλη.');
+          form.reset();
+        } catch (err) {
+          console.error(err);
+          showErr('Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.');
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
