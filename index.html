@@ -42,6 +42,17 @@
       /* Note: we don't touch .u-back-slide or .u-back-image so your images render as-is */
     </style>
     <!-- ===== End centering override ===== -->
+
+    <!-- ===== Contact form logic additions (from Contact.html) ===== -->
+    <style>
+      /* Hide Nicepage default banners – we use our inline status instead */
+      .u-form-send-success, .u-form-send-error { display:none !important; }
+      /* Inline status styles */
+      #formStatus { display:none; margin-top:12px; font-size:14px; }
+      #formStatus.ok  { color:#2e7d32; display:block; }
+      #formStatus.err { color:#c62828; display:block; }
+    </style>
+    <!-- ===== End contact form additions ===== -->
     
     
     
@@ -443,28 +454,59 @@
                       <h2 class="u-text u-text-default u-text-10">Επικοινωνία</h2>
                       <p class="u-text u-text-default u-text-11"> Θέλετε να ρωτήσετε κάτι ή να μας στείλετε τα σχόλια σας; Συμπληρώστε τη φόρμα για να επικοινωνήσετε μαζί μας. </p>
                       <div class="u-align-left u-expanded-width u-form u-form-1">
-                        <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form" style="padding: 0px;" source="email" name="form">
-                          <div class="u-form-group u-form-name u-label-top">
-                            <label for="name-5a14" class="u-label">Ονοματεπώνυμο</label>
-                            <input type="text" placeholder="Εισάγετε το ονοματεπώνυμο σας" id="name-5a14" name="name" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1" required="">
+                        <!-- ===== Contact form replaced with logic from Contact.html ===== -->
+                        <form id="contactForm"
+                              action="https://script.google.com/macros/s/AKfycbwVwBphymBKoNU7ecDs7rFvg2afoM9DP4A_BBVBNsCL4d9kj7FDFEEHaj-BOYAT0Yuxug/exec"
+                              method="POST"
+                              class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form"
+                              style="padding: 0px;"
+                              name="form">
+
+                          <div class="u-form-email u-form-group u-form-partition-factor-2">
+                            <label for="email-c6a3" class="u-label">Email</label>
+                            <input type="email" placeholder="Enter a valid email address" id="email-c6a3" name="email" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required>
                           </div>
-                          <div class="u-form-email u-form-group u-label-top">
-                            <label for="email-5a14" class="u-label">Email</label>
-                            <input type="email" placeholder="Enter a valid email address" id="email-5a14" name="email" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2" required="">
+
+                          <div class="u-form-group u-form-name u-form-partition-factor-2">
+                            <label for="name-c6a3" class="u-label">Ονοματεπώνυμο</label>
+                            <input type="text" placeholder="Enter your Name" id="name-c6a3" name="name" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required>
                           </div>
-                          <div class="u-form-group u-form-message u-label-top">
-                            <label for="message-5a14" class="u-label">Πώς μπορούμε να βοηθήσουμε;</label>
-                            <textarea placeholder="" rows="4" cols="50" id="message-5a14" name="message" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required=""></textarea>
+
+                          <div class="u-form-group u-form-partition-factor-2 u-form-phone">
+                            <label for="phone-84d9" class="u-label">Τηλέφωνο</label>
+                            <input type="tel" id="phone-84d9" name="phone" placeholder="Enter your phone" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required>
                           </div>
+
+                          <div class="u-form-address u-form-group u-form-partition-factor-2">
+                            <label for="address-be2d" class="u-label">Διεύθυνση</label>
+                            <input type="text" placeholder="Enter your address" id="address-be2d" name="address" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required>
+                          </div>
+
+                          <div class="u-form-group u-form-message">
+                            <label for="message-c6a3" class="u-label">Μήνυμα</label>
+                            <textarea placeholder="" rows="4" cols="50" id="message-c6a3" name="message" class="u-border-2 u-border-grey-10 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required></textarea>
+                          </div>
+
                           <div class="u-align-right u-form-group u-form-submit u-label-top">
-                            <a href="#" class="u-active-white u-border-none u-btn u-btn-submit u-button-style u-hover-white u-palette-1-base u-text-active-black u-text-body-color u-text-hover-black u-btn-2">ΥΠΟΒΟΛΗ</a>
+                            <a href="#"
+                               id="submitBtn"
+                               class="u-active-white u-border-none u-btn u-btn-submit u-button-style u-hover-white u-palette-1-base u-text-active-black u-text-body-color u-text-hover-black u-btn-2"
+                               style="background-color:#d9a441; color:#111; border:none; transition:background-color .2s,color .2s;"
+                               onmouseenter="this.style.backgroundColor='#111'; this.style.color='#fff'; Array.from(this.querySelectorAll('*')).forEach(el=>{el.style.color='#fff'; el.style.fill='#fff'; el.style.stroke='#fff';});"
+                               onmouseleave="this.style.backgroundColor='#d9a441'; this.style.color='#111'; Array.from(this.querySelectorAll('*')).forEach(el=>{el.style.color=''; el.style.fill=''; el.style.stroke='';});">
+                              ΥΠΟΒΟΛΗ
+                            </a>
                             <input type="submit" value="submit" class="u-form-control-hidden">
                           </div>
+
+                          <!-- Inline status (shown by JS) -->
+                          <div id="formStatus" aria-live="polite"></div>
+
+                          <!-- Keep Nicepage defaults (hidden by CSS above) -->
                           <div class="u-form-send-message u-form-send-success">Thank you! Your message has been sent.</div>
                           <div class="u-form-send-error u-form-send-message">Unable to send your message. Please fix errors then try again.</div>
-                          <input type="hidden" value="" name="recaptchaResponse">
-                          <input type="hidden" name="formServices" value="d750fa8e-4776-8cf0-7e98-a09082119622">
                         </form>
+                        <!-- ===== End replaced contact form ===== -->
                       </div>
                     </div>
                   </div>
@@ -497,5 +539,52 @@
         </a>
       </p>
     </section>
+
+    <!-- ===== Submit handler from Contact.html (no other changes) ===== -->
+    <script>
+      (function () {
+        const form   = document.getElementById('contactForm');
+        const button = document.getElementById('submitBtn');
+        const status = document.getElementById('formStatus');
+
+        function showStatus(type, msg, seconds = 5) {
+          status.textContent = msg;
+          status.className = type === 'ok' ? 'ok' : 'err';
+          status.style.display = 'block';
+          if (seconds > 0) {
+            setTimeout(() => { status.style.display = 'none'; }, seconds * 1000);
+          }
+        }
+
+        // Make the anchor behave like a button
+        if (button) {
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (form) form.requestSubmit();
+          });
+        }
+
+        if (form) {
+          form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+            showStatus('ok', 'Αποστολή…', 0);
+
+            try {
+              const data = new FormData(form);
+              await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
+              showStatus('ok', 'Ευχαριστούμε! Το μήνυμά σας εστάλη.', 5);
+              form.reset();
+            } catch (err) {
+              console.error(err);
+              showStatus('err', 'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.', 7);
+            }
+          });
+        }
+      })();
+    </script>
+    <!-- ===== End submit handler ===== -->
   
 </body></html>
