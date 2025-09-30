@@ -52,6 +52,27 @@
       #formStatus.ok  { color:#2e7d32; display:block; }
       #formStatus.err { color:#c62828; display:block; }
     </style>
+
+	    </style>
+
+    <!-- Readable inputs on white background -->
+    <style>
+      #contactForm input,
+      #contactForm textarea {
+        color: #111 !important;   /* text color */
+        caret-color: #111;        /* cursor color */
+      }
+      #contactForm input::placeholder,
+      #contactForm textarea::placeholder {
+        color: #666 !important;
+        opacity: 1;               /* Firefox */
+      }
+      #contactForm .u-label {
+        color: #111 !important;   /* ensure labels are dark */
+      }
+    </style>   
+
+	
     <!-- ===== End contact form additions ===== -->
     
     
