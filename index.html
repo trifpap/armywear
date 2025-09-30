@@ -14,54 +14,37 @@
     <meta name="referrer" content="origin">
 
     <!-- =======================
-         ADDED: Gallery centering + sizing overrides
-         Purpose:
-         - Center the last row of gallery items
-         - Keep 3 columns on desktop, 2 on tablets, 1 on phones
-         - Make images fill their cards (no tiny thumbnails)
+         ADDED: Center last row in galleries
+         - Keep Nicepage's image sizing intact.
+         - Center wrapped rows (including the last).
+         - Keep 3/2/1 columns responsively.
          ======================= -->
     <style>
-      /* Use flex so that wrapped rows (especially the last one) can be centered */
+      /* Make gallery rows wrap & center (leave image rules alone) */
       .u-gallery .u-gallery-inner {
-        display: flex !important;       /* override Nicepage grid */
+        display: flex !important;   /* override grid to allow last-line centering */
         flex-wrap: wrap;
-        justify-content: center;        /* centers each wrapped line */
-        gap: 24px;                      /* space between items */
+        justify-content: center;    /* centers each wrapped line */
+        gap: 24px;                  /* spacing between items */
         margin: 0 auto;
       }
 
-      /* 3 / 2 / 1 responsive columns */
+      /* Responsive column widths for each card */
       .u-gallery .u-gallery-item {
         box-sizing: border-box;
-        flex: 0 0 calc(33.333% - 24px) !important; /* 3 columns desktop */
-        max-width: calc(33.333% - 24px) !important;
+        width: calc(33.333% - 24px);        /* 3 columns on desktop */
       }
       @media (max-width: 991px) {
         .u-gallery .u-gallery-item {
-          flex: 0 0 calc(50% - 24px) !important;   /* 2 columns tablet */
-          max-width: calc(50% - 24px) !important;
+          width: calc(50% - 24px);          /* 2 columns on tablets */
         }
       }
       @media (max-width: 575px) {
         .u-gallery .u-gallery-item {
-          flex: 0 0 100% !important;               /* 1 column phone */
-          max-width: 100% !important;
+          width: 100%;                      /* 1 column on phones */
         }
       }
-
-      /* Ensure the slide area and images expand to fill the card width */
-      .u-gallery .u-back-slide {
-        width: 100% !important;
-        height: auto !important;
-        display: block !important;
-      }
-      .u-gallery .u-back-image {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
-        object-fit: contain;  /* keep image fully visible without cropping */
-      }
+      /* Important: we do NOT override .u-back-slide / .u-back-image */
     </style>
     <!-- =======================
          END ADDED CSS
@@ -237,7 +220,7 @@
       </div>
     </section>
 
-    <!-- ====== GALLERIES (unchanged HTML) ====== -->
+    <!-- ====== GALLERIES (HTML unchanged) ====== -->
 
     <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85">
       <div class="u-align-center u-container-align-center u-container-style u-expanded-width u-group u-image u-image-1" data-image-width="1669" data-image-height="1080" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">
