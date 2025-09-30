@@ -12,8 +12,36 @@
     <meta name="generator" content="Nicepage 7.7.3, nicepage.com">
     <meta name="referrer" content="origin">
     
-    
-    
+    <!-- ===== Center gallery rows (including last row) — minimal override ===== -->
+    <style>
+      /* Turn the gallery inner into a wrapping flex row and center it */
+      .u-gallery .u-gallery-inner {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;   /* centers each wrapped row */
+        gap: 24px;                 /* keeps spacing between items */
+      }
+      /* Keep a 3/2/1 column feel so items don't shrink to tiny thumbnails */
+      .u-gallery .u-gallery-item {
+        box-sizing: border-box;
+        flex: 0 0 calc(33.333% - 24px);
+        max-width: calc(33.333% - 24px);
+      }
+      @media (max-width: 991px) {
+        .u-gallery .u-gallery-item {
+          flex-basis: calc(50% - 24px);
+          max-width: calc(50% - 24px);
+        }
+      }
+      @media (max-width: 575px) {
+        .u-gallery .u-gallery-item {
+          flex-basis: 100%;
+          max-width: 100%;
+        }
+      }
+      /* Note: we don't touch .u-back-slide or .u-back-image so your images render as-is */
+    </style>
+    <!-- ===== End centering override ===== -->
     
     
     
