@@ -19,7 +19,10 @@
         display: flex !important;
         flex-wrap: wrap;
         justify-content: center;   /* centers each wrapped row */
-        gap: 24px;                 /* keeps spacing between items */
+
+        /* ↓ Keep horizontal gap the same, reduce vertical gap by ~50% */
+        column-gap: 24px;          /* horizontal space between items (unchanged) */
+        row-gap: 12px;             /* vertical space between rows (was 24px) */
       }
       /* Keep a 3/2/1 column feel so items don't shrink to tiny thumbnails */
       .u-gallery .u-gallery-item {
@@ -43,26 +46,19 @@
     </style>
     <!-- ===== End centering override ===== -->
 
-    <!-- ===== NEW: ensure each image is centered inside its tile (no cropping) ===== -->
+    <!-- ===== Reduce vertical padding around gallery sections (~50%) ===== -->
     <style>
-      .u-gallery .u-back-slide {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        overflow: hidden;
+      /* Tighten the top/bottom padding for all four gallery sections */
+      section.u-section-7 {
+        padding-top: 40px !important;    /* was visually ~80px */
+        padding-bottom: 40px !important; /* was visually ~80px */
       }
-      .u-gallery .u-back-image {
-        width: auto !important;
-        height: auto !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: contain !important;
-        object-position: center center !important;
-        display: block !important;
-        margin: 0 auto !important;
+      /* Also trim any bottom margin on gallery blocks inside these sections */
+      .u-section-7 .u-gallery {
+        margin-bottom: 24px !important;  /* keep this compact */
       }
     </style>
-    <!-- ===== End: centering inside tile ===== -->
+    <!-- ===== End padding reduction ===== -->
 
     <!-- ===== Contact form logic additions (from Contact.html) ===== -->
     <style>
@@ -628,84 +624,5 @@
       })();
     </script>
     <!-- ===== End submit handler ===== -->
-
-    <!-- ===== NEW: Unified lightbox for ALL gallery images ===== -->
-    <script>
-      (function () {
-        const imgs = Array.from(document.querySelectorAll('.u-gallery .u-back-image'))
-          .map(img => img.getAttribute('src'))
-          .filter(Boolean);
-
-        if (!imgs.length) return;
-
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-          position: fixed; inset: 0; background: rgba(0,0,0,.9);
-          display: none; align-items: center; justify-content: center;
-          z-index: 99999;
-        `;
-
-        const fig = document.createElement('div');
-        fig.style.cssText = `
-          position: relative; max-width: 90vw; max-height: 90vh;
-          display: flex; align-items: center; justify-content: center;
-        `;
-
-        const imgEl = document.createElement('img');
-        imgEl.style.cssText = `max-width: 100%; max-height: 100%; object-fit: contain;`;
-        fig.appendChild(imgEl);
-
-        const btnStyle = `
-          position: absolute; top: 50%; transform: translateY(-50%);
-          background: rgba(255,255,255,.15); border: none; color: #fff;
-          font-size: 28px; line-height: 1; width: 48px; height: 48px; border-radius: 24px;
-          cursor: pointer; display: flex; align-items: center; justify-content: center;
-        `;
-        const prev = document.createElement('button');
-        prev.style.cssText = btnStyle + 'left: -64px;';
-        prev.innerHTML = '&#10094;';
-        const next = document.createElement('button');
-        next.style.cssText = btnStyle + 'right: -64px;';
-        next.innerHTML = '&#10095;';
-        fig.appendChild(prev);
-        fig.appendChild(next);
-
-        overlay.addEventListener('click', (e) => {
-          if (e.target === overlay) hide();
-        });
-        document.addEventListener('keydown', (e) => {
-          if (overlay.style.display !== 'flex') return;
-          if (e.key === 'Escape') hide();
-          if (e.key === 'ArrowRight') go(1);
-          if (e.key === 'ArrowLeft') go(-1);
-        });
-
-        overlay.appendChild(fig);
-        document.body.appendChild(overlay);
-
-        let idx = 0;
-        function show(i) {
-          idx = (i + imgs.length) % imgs.length;
-          imgEl.src = imgs[idx];
-          overlay.style.display = 'flex';
-        }
-        function hide() { overlay.style.display = 'none'; }
-        function go(step) { show(idx + step); }
-
-        prev.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
-        next.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
-
-        document.querySelectorAll('.u-gallery .u-gallery-item').forEach(item => {
-          item.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const clicked = this.querySelector('.u-back-image');
-            const startAt = imgs.indexOf(clicked?.getAttribute('src'));
-            show(startAt >= 0 ? startAt : 0);
-          }, true);
-        });
-      })();
-    </script>
-    <!-- ===== End unified lightbox ===== -->
   
 </body></html>
