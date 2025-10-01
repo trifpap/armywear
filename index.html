@@ -19,18 +19,18 @@
         display: flex !important;
         flex-wrap: wrap;
         justify-content: center;   /* centers each wrapped row */
-        gap: 24px;                 /* keeps spacing between items */
+        gap: 18px;                 /* 25% less than previous 24px */
       }
       /* Keep a 3/2/1 column feel so items don't shrink to tiny thumbnails */
       .u-gallery .u-gallery-item {
         box-sizing: border-box;
-        flex: 0 0 calc(33.333% - 24px);
-        max-width: calc(33.333% - 24px);
+        flex: 0 0 calc(33.333% - 18px);
+        max-width: calc(33.333% - 18px);
       }
       @media (max-width: 991px) {
         .u-gallery .u-gallery-item {
-          flex-basis: calc(50% - 24px);
-          max-width: calc(50% - 24px);
+          flex-basis: calc(50% - 18px);
+          max-width: calc(50% - 18px);
         }
       }
       @media (max-width: 575px) {
@@ -63,6 +63,13 @@
       }
     </style>
     <!-- ===== End: centering inside tile ===== -->
+
+    <!-- ===== 25% less space after the LAST gallery section only ===== -->
+    <style>
+      .u-section-7:last-of-type {
+        padding-bottom: 45px !important; /* trims the space before the next section */
+      }
+    </style>
 
     <!-- ===== Contact form logic additions (from Contact.html) ===== -->
     <style>
@@ -629,7 +636,7 @@
     </script>
     <!-- ===== End submit handler ===== -->
 
-    <!-- ===== NEW: Unified lightbox for ALL gallery images ===== -->
+    <!-- ===== NEW: Unified lightbox for ALL gallery images + Close button + back-button handling ===== -->
     <script>
       (function () {
         const imgs = Array.from(document.querySelectorAll('.u-gallery .u-back-image'))
@@ -660,15 +667,33 @@
           background: rgba(255,255,255,.15); border: none; color: #fff;
           font-size: 28px; line-height: 1; width: 48px; height: 48px; border-radius: 24px;
           cursor: pointer; display: flex; align-items: center; justify-content: center;
+          touch-action: manipulation;
         `;
         const prev = document.createElement('button');
         prev.style.cssText = btnStyle + 'left: -64px;';
+        prev.setAttribute('aria-label','Previous image');
         prev.innerHTML = '&#10094;';
+
         const next = document.createElement('button');
         next.style.cssText = btnStyle + 'right: -64px;';
+        next.setAttribute('aria-label','Next image');
         next.innerHTML = '&#10095;';
+
+        /* Close button (especially helpful on mobile) */
+        const closeBtn = document.createElement('button');
+        closeBtn.style.cssText = `
+          position: absolute; top: -56px; right: -56px;
+          background: rgba(255,255,255,.2); border: none; color: #fff;
+          font-size: 28px; width: 48px; height: 48px; border-radius: 24px;
+          cursor: pointer; display: flex; align-items: center; justify-content: center;
+          touch-action: manipulation;
+        `;
+        closeBtn.setAttribute('aria-label','Close');
+        closeBtn.innerHTML = '&times;';
+
         fig.appendChild(prev);
         fig.appendChild(next);
+        fig.appendChild(closeBtn);
 
         overlay.addEventListener('click', (e) => {
           if (e.target === overlay) hide();
@@ -684,16 +709,37 @@
         document.body.appendChild(overlay);
 
         let idx = 0;
+        let pushed = false; // track history push so mobile Back closes overlay
+
         function show(i) {
           idx = (i + imgs.length) % imgs.length;
           imgEl.src = imgs[idx];
           overlay.style.display = 'flex';
+          if (!pushed) {
+            history.pushState({ lightbox: true }, '');
+            pushed = true;
+          }
         }
-        function hide() { overlay.style.display = 'none'; }
+        function hide(fromPop) {
+          overlay.style.display = 'none';
+          if (pushed && !fromPop) {
+            // Close state so Back doesn't leave the site
+            history.back();
+          }
+          pushed = false;
+        }
         function go(step) { show(idx + step); }
 
         prev.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
         next.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
+        closeBtn.addEventListener('click', (e) => { e.stopPropagation(); hide(false); });
+
+        // If user presses device Back, close overlay first
+        window.addEventListener('popstate', (e) => {
+          if (overlay.style.display === 'flex' && pushed) {
+            hide(true);
+          }
+        });
 
         document.querySelectorAll('.u-gallery .u-gallery-item').forEach(item => {
           item.addEventListener('click', function (e) {
