@@ -589,17 +589,12 @@
       </p>
     </section>
 
-    <!-- ===== Submit handler from Contact.html (no other changes) — FIXED to send ONCE ===== -->
+    <!-- ===== Submit handler — send ONCE; block Nicepage handlers; support Enter key ===== -->
     <script>
       (function () {
         const form   = document.getElementById('contactForm');
         const button = document.getElementById('submitBtn');
         const status = document.getElementById('formStatus');
-
-        // Prevent Nicepage auto-submit by removing the magic class at runtime
-        if (button && button.classList.contains('u-btn-submit')) {
-          button.classList.remove('u-btn-submit');
-        }
 
         function showStatus(type, msg, seconds = 5) {
           status.textContent = msg;
@@ -610,42 +605,43 @@
           }
         }
 
-        // Double-click guard
         let sending = false;
-
-        // Capture-phase submit blocker: stops any other submit handlers from firing
-        if (form) {
-          form.addEventListener('submit', async function (e) {
-            // Block default and any other handlers (including Nicepage)
-            e.preventDefault();
-            e.stopPropagation();
-            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-
-            if (sending) return; // already sending
-            sending = true;
-
-            showStatus('ok', 'Αποστολή…', 0);
-
-            try {
-              const data = new FormData(form);
-              await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
-              showStatus('ok', 'Ευχαριστούμε! Το μήνυμά σας εστάλη.', 5);
-              form.reset();
-            } catch (err) {
-              console.error(err);
-              showStatus('err', 'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.', 7);
-            } finally {
-              sending = false;
-            }
-          }, true); // <-- capture
-
-          // Make the anchor behave like a button: trigger our single submit
-          if (button) {
-            button.addEventListener('click', function (e) {
-              e.preventDefault();
-              form.requestSubmit();
-            });
+        async function sendOnce() {
+          if (sending) return;
+          sending = true;
+          showStatus('ok', 'Αποστολή…', 0);
+          try {
+            const data = new FormData(form);
+            await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
+            showStatus('ok', 'Ευχαριστούμε! Το μήνυμά σας εστάλη.', 5);
+            form.reset();
+          } catch (err) {
+            console.error(err);
+            showStatus('err', 'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.', 7);
+          } finally {
+            sending = false;
           }
+        }
+
+        if (button) {
+          // Handle button clicks ourselves and block Nicepage’s auto handler
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            e.stopPropagation();
+            if (!form) return;
+            sendOnce();
+          });
+        }
+
+        if (form) {
+          // Also handle Enter-key submits; block all other submit handlers
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            e.stopPropagation();
+            sendOnce();
+          });
         }
       })();
     </script>
