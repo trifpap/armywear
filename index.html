@@ -15,36 +15,34 @@
   <meta name="generator" content="Nicepage 7.7.3, nicepage.com">
   <meta name="referrer" content="origin">
 
-  <!-- ===== Gallery layout tweaks you had ===== -->
+  <!-- Gallery layout tweaks -->
   <style>
     .u-gallery .u-gallery-inner { display:flex !important; flex-wrap:wrap; justify-content:center; gap:18px; }
     .u-gallery .u-gallery-item { box-sizing:border-box; flex:0 0 calc(33.333% - 18px); max-width:calc(33.333% - 18px); }
     @media (max-width: 991px) { .u-gallery .u-gallery-item { flex-basis: calc(50% - 18px); max-width: calc(50% - 18px); } }
-    @media (max-width: 575px) { .u-gallery .u-gallery-item { flex-basis: 100%; max-width: 100%; } }
+    @media (max-width: 575px) { .u-gallery .u-gallery-item { flex-basis:100%; max-width:100%; } }
   </style>
 
-  <!-- Images centered inside tiles -->
+  <!-- Center each image inside tile (no cropping) -->
   <style>
     .u-gallery .u-back-slide { display:flex !important; align-items:center !important; justify-content:center !important; overflow:hidden; }
     .u-gallery .u-back-image { width:auto !important; height:auto !important; max-width:100% !important; max-height:100% !important; object-fit:contain !important; object-position:center center !important; display:block !important; margin:0 auto !important; }
   </style>
 
-  <!-- Less space after last gallery -->
+  <!-- Trim space after the last gallery -->
   <style>
     .u-section-7:last-of-type { padding-bottom:25px !important; }
   </style>
 
-  <!-- Contact form UI helpers -->
+  <!-- Contact form helpers -->
   <style>
-    /* Hide Nicepage banners – we use our inline status */
     .u-form-send-success, .u-form-send-error { display:none !important; }
-    /* Inline status */
     #formStatus { display:none; margin-top:12px; font-size:14px; }
     #formStatus.ok  { color:#2e7d32; display:block; }
     #formStatus.err { color:#c62828; display:block; }
   </style>
 
-  <!-- Readable inputs on white background -->
+  <!-- Readable inputs -->
   <style>
     #contactForm input, #contactForm textarea { color:#111 !important; caret-color:#111; }
     #contactForm input::placeholder, #contactForm textarea::placeholder { color:#666 !important; opacity:1; }
@@ -54,11 +52,11 @@
   <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
   <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
   <script type="application/ld+json">{
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": "Site2",
-    "logo": "images/armywear_6_logo_sm.jpg"
-  }</script>
+	"@context": "http://schema.org",
+	"@type": "Organization",
+	"name": "Site2",
+	"logo": "images/armywear_6_logo_sm.jpg"
+}</script>
   <meta name="theme-color" content="#d9c48d">
   <meta property="og:title" content="Home">
   <meta property="og:description" content="">
@@ -74,7 +72,6 @@
       <a href="#" class="u-image u-logo u-image-1" data-image-width="300" data-image-height="38">
         <img src="images/armywear_6_logo_sm.jpg" class="u-logo-image u-logo-image-1" alt="Armywear">
       </a>
-
       <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" data-responsive-from="MD">
         <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 500;">
           <a class="u-button-style u-hamburger-link u-nav-link" href="#">
@@ -85,8 +82,8 @@
 
         <div class="u-custom-menu u-nav-container">
           <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
-            <li class="u-nav-item"><a class="u-nav-link u-active-grey-5 u-hover-grey-10 u-text-grey-90" href="index.html" style="padding: 10px 20px;">Αρχική</a></li>
-            <li class="u-nav-item"><a class="u-nav-link u-active-grey-5 u-hover-grey-10 u-text-grey-90" href="Contact.html" style="padding: 10px 20px;">Επικοινωνία</a></li>
+            <li class="u-nav-item"><a class="u-nav-link" href="index.html" style="padding: 10px 20px;">Αρχική</a></li>
+            <li class="u-nav-item"><a class="u-nav-link" href="Contact.html" style="padding: 10px 20px;">Επικοινωνία</a></li>
           </ul>
         </div>
 
@@ -144,61 +141,94 @@
         <div class="u-container-layout u-valign-middle u-container-layout-1">
           <h2 class="u-align-left u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1750">ARMYWEAR</h2>
           <p class="u-align-left u-text u-text-grey-50 u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1750" data-animation-delay="500">
-            <span style="font-weight:700;">Οι σημαντικότερες συνεργασίες μας αφορούν μεγάλους ελληνικούς και διεθνείς οίκους, όπως: Robe di Kappa, Americanino, Lee, Lois, ΕΛΒΙΤΕΞ Α.Ε., Κ. ΣΙΑΜΙΔΗΣ Α.Ε., POWERPHARM κλπ. (φασόν παραγωγή). Επίσης παράγουμε και προμηθεύουμε με είδη ιματισμού το Ελληνικό Δημόσιο, όπως: Γ.Ε.Σ., Γ.Ε.Α., Γ.Ε.Ν., ΕΛ-ΑΣ, Ε.ΘΕ.Λ., Κ.Α.Υ.Φ., Ο.Τ.Ε., κλπ.</span>
-            <br><br>
-            Η εταιρεία μας εφαρμόζει το πρότυπο EN ISO 9001:2015 για όλες τις δραστηριότητές της, το πρότυπο EN ISO 13485:2016 για συγκεκριμένες δραστηριότητές της και συμμορφώνεται με την Εθνική και Κοινοτική νομοθεσία, συμμετέχοντας στο πρόγραμμα ανακύκλωσης συσκευασιών μέσω της Ελληνικής Εταιρείας Αξιοποίησης Ανακύκλωσης (ΕΕΕΑ ΑΕ).
-            <br><br>
-            Συνεργαζόμαστε με προμηθευτές οι οποίοι, κατά περίπτωση, εφαρμόζουν τα αναγνωρισμένα πρότυπα ISO 9001, ISO 13485, ISO 14001, BSCI, RoHS και Global Recycled Standard.
-            <br><br>
-            Επιπλέον, διενεργούμε ελέγχους ποιότητας, οι οποίοι πραγματοποιούνται σε συνεργασία με την Εταιρεία Βιομηχανικής Έρευνας, Τεχνολογικής Ανάπτυξης & Εργαστηριακών Δοκιμών, Πιστοποίησης και Ποιότητας (ΕΒΕΤΑΜ ΑΕ) καθώς και με την Société Générale de Surveillance (SGS).
+            <span style="font-weight: 700;"> Οι σημαντικότερες συνεργασίες μας αφορούν μεγάλους ελληνικούς και διεθνείς οίκους, όπως: Robe di Kappa, Americanino, Lee, Lois, ΕΛΒΙΤΕΞ Α.Ε., Κ. ΣΙΑΜΙΔΗΣ Α.Ε., POWERPHARM κλπ. (φασόν παραγωγή). Επίσης παράγουμε και προμηθεύουμε με είδη ιματισμού το Ελληνικό Δημόσιο, όπως: Γ.Ε.Σ., Γ.Ε.Α., Γ.Ε.Ν., ΕΛ-ΑΣ, Ε.ΘΕ.Λ., Κ.Α.Υ.Φ., Ο.Τ.Ε., κλπ. </span>
+            <br><br> Η εταιρεία μας εφαρμόζει το πρότυπο EN ISO 9001:2015 για όλες τις δραστηριότητές της, το πρότυπο EN ISO 13485:2016 για συγκεκριμένες δραστηριότητές της και συμμορφώνεται με την Εθνική και Κοινοτική νομοθεσία, συμμετέχοντας στο πρόγραμμα ανακύκλωσης συσκευασιών μέσω της Ελληνικής Εταιρείας Αξιοποίησης Ανακύκλωσης (ΕΕΕΑ ΑΕ).
+            <br><br> Συνεργαζόμαστε με προμηθευτές οι οποίοι, κατά περίπτωση, εφαρμόζουν τα αναγνωρισμένα πρότυπα ISO 9001, ISO 13485, ISO 14001, BSCI, RoHS και Global Recycled Standard.
+            <br><br> Επιπλέον, διενεργούμε ελέγχους ποιότητας, οι οποίοι πραγματοποιούνται σε συνεργασία με την Εταιρεία Βιομηχανικής Έρευνας, Τεχνολογικής Ανάπτυξης & Εργαστηριακών Δοκιμών, Πιστοποίησης και Ποιότητας (ΕΒΕΤΑΜ ΑΕ) καθώς και με την Société Générale de Surveillance (SGS).
           </p>
 
-          <a href="GDtech ISO 9001 - 2024.pdf" target="_blank" rel="noopener" class="u-align-left u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-white u-btn u-button-style u-custom-font u-font-raleway u-none u-text-active-palette-3-base u-text-body-alt-color u-text-hover-palette-3-base u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="1000">ISO 9001:2015
-            <span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3031716-bd0c2d39.png" alt=""></span>
-          </a>
-          <a href="GDtech ISO 13485 - 2025.pdf" target="_blank" rel="noopener" class="u-align-left u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-white u-btn u-button-style u-custom-font u-font-raleway u-none u-text-active-palette-3-base u-text-body-alt-color u-text-hover-palette-3-base u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="1000">ISO 13485:2016
-            <span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3031716-bd0c2d39.png" alt=""></span>
-          </a>
-          <a href="GDtech ΕΕΑΑ - 2025.pdf" target="_blank" rel="noopener" class="u-align-left u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-white u-btn u-button-style u-custom-font u-font-raleway u-none u-text-active-palette-3-base u-text-body-alt-color u-text-hover-palette-3-base u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="1000">ΑΝΑΚΥΚΛΩΣΗ
-            <span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3031716-bd0c2d39.png" alt=""></span>
-          </a>
+          <a href="GDtech ISO 9001 - 2024.pdf" class="u-align-left u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-white u-btn u-button-style u-custom-font u-font-raleway u-none u-text-active-palette-3-base u-text-body-alt-color u-text-hover-palette-3-base u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="1000" target="_blank" rel="noopener">ISO 9001:2015 <span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3031716-bd0c2d39.png" alt=""></span></a>
+          <a href="GDtech ISO 13485 - 2025.pdf" class="u-align-left u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-white u-btn u-button-style u-custom-font u-font-raleway u-none u-text-active-palette-3-base u-text-body-alt-color u-text-hover-palette-3-base u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="1000" target="_blank" rel="noopener">ISO 13485:2016&nbsp;<span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3031716-bd0c2d39.png" alt=""></span></a>
+          <a href="GDtech ΕΕΑΑ - 2025.pdf" class="u-align-left u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-white u-btn u-button-style u-custom-font u-font-raleway u-none u-text-active-palette-3-base u-text-body-alt-color u-text-hover-palette-3-base u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="1000" target="_blank" rel="noopener">ΑΝΑΚΥΚΛΩΣΗ&nbsp;<span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3031716-bd0c2d39.png" alt=""></span></a>
+
+          <!-- The 3 bullets list you had -->
+          <ul class="u-align-left u-custom-font u-custom-list u-font-montserrat u-spacing-12 u-text u-text-3" data-animation-name="customAnimationIn" data-animation-duration="1750" data-animation-delay="750">
+            <li><div class="u-list-icon u-text-palette-3-base"><div>➔</div></div> ΣΧΕΔΙΑΣΜΟΣ</li>
+            <li><div class="u-list-icon u-text-palette-3-base"><div>➔</div></div> ΠΟΙΟΤΗΤΑ</li>
+            <li><div class="u-list-icon u-text-palette-3-base"><div>➔</div></div> ΣΥΝΕΠΕΙΑ</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Section 3 (CTA + Galleries 1..n) ===== -->
+  <!-- ===== Section 3 (Δουλέψτε...) WITH BOXES preserved ===== -->
   <section class="u-align-center u-clearfix u-container-align-center u-container-align-left-lg u-container-align-left-xl u-image u-section-3" id="carousel_be76" data-image-width="1620" data-image-height="1080">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <h2 class="u-align-left u-text u-text-body-alt-color u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500"><b></b>Δουλέψτε με επαγγελματίες!</h2>
+      <h2 class="u-align-left u-text u-text-body-alt-color u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500"><b></b>Δουλέψτε με επαγγελματίες!
+      </h2>
 
-      <div class="u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-none u-gallery-1">
-        <div class="u-gallery-inner u-gallery-inner-1">
-          <div class="u-effect-hover-zoom u-gallery-item">
-            <div class="u-back-slide" data-image-width="1500" data-image-height="1000">
-              <img class="u-back-image u-expanded u-back-image-1" src="images/1_remixed_image_1759209228_0.png" alt="">
+      <!-- The four “boxes” under the heading -->
+      <div class="u-list u-list-1">
+        <div class="u-repeater u-repeater-1">
+          <div class="u-align-left u-container-align-left u-container-style u-list-item u-repeater-item u-white u-list-item-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+              <span class="u-file-icon u-icon u-text-palette-1-base u-icon-1"><img src="images/3082985-2e40e8dd.png" alt=""></span>
+              <h5 class="u-text u-text-2">ΣΧΕΔΙΑΣΜΟΣ</h5>
             </div>
-            <div class="u-over-slide u-shading u-over-slide-1"></div>
           </div>
-          <div class="u-effect-hover-zoom u-gallery-item">
-            <div class="u-back-slide" data-image-width="1619" data-image-height="1080">
-              <img class="u-back-image u-expanded u-back-image-2" src="images/2_remixed_image_1759209258_0.png" alt="">
+          <div class="u-align-left u-container-align-left u-container-style u-list-item u-repeater-item u-video-cover u-white u-list-item-2" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+              <span class="u-file-icon u-icon u-text-palette-1-base u-icon-2"><img src="images/2282272-fd83f953.png" alt=""></span>
+              <h5 class="u-text u-text-3">ΑΝΑΠΤΥΞΗ</h5>
             </div>
-            <div class="u-over-slide u-shading u-over-slide-2"></div>
           </div>
-          <div class="u-effect-hover-zoom u-gallery-item">
-            <div class="u-back-slide" data-image-width="1500" data-image-height="1000">
-              <img class="u-back-image u-expanded u-back-image-3" src="images/3_remixed_image_1759209288_0.png" alt="">
+          <div class="u-align-left u-container-align-left u-container-style u-list-item u-repeater-item u-video-cover u-white u-list-item-3" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+              <span class="u-file-icon u-icon u-text-palette-1-base u-icon-3"><img src="images/4236478-31b8485d.png" alt=""></span>
+              <h5 class="u-text u-text-4">ΔΗΜΙΟΥΡΓΙΚΟΤΗΤΑ</h5>
             </div>
-            <div class="u-over-slide u-shading u-over-slide-3"></div>
           </div>
+          <div class="u-align-left u-container-align-left u-container-style u-list-item u-repeater-item u-video-cover u-white u-list-item-4" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
+              <span class="u-file-icon u-icon u-text-palette-1-base u-icon-4"><img src="images/115968-98e25a6b.png" alt=""></span>
+              <h5 class="u-text u-text-5">ΣΤΡΑΤΗΓΙΚΗ</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="u-align-left u-text u-text-body-alt-color u-text-6" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750"></p>
+    </div>
+  </section>
+
+  <!-- ===== Galleries (as you had) ===== -->
+  <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85">
+    <div class="u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-none u-gallery-1">
+      <div class="u-gallery-inner u-gallery-inner-1">
+        <div class="u-effect-hover-zoom u-gallery-item">
+          <div class="u-back-slide" data-image-width="1500" data-image-height="1000">
+            <img class="u-back-image u-expanded u-back-image-1" src="images/1_remixed_image_1759209228_0.png" alt="">
+          </div>
+          <div class="u-over-slide u-shading u-over-slide-1"></div>
+        </div>
+        <div class="u-effect-hover-zoom u-gallery-item">
+          <div class="u-back-slide" data-image-width="1619" data-image-height="1080">
+            <img class="u-back-image u-expanded u-back-image-2" src="images/2_remixed_image_1759209258_0.png" alt="">
+          </div>
+          <div class="u-over-slide u-shading u-over-slide-2"></div>
+        </div>
+        <div class="u-effect-hover-zoom u-gallery-item">
+          <div class="u-back-slide" data-image-width="1500" data-image-height="1000">
+            <img class="u-back-image u-expanded u-back-image-3" src="images/3_remixed_image_1759209288_0.png" alt="">
+          </div>
+          <div class="u-over-slide u-shading u-over-slide-3"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Gallery section 2 -->
-  <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85">
+  <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85_b">
     <div class="u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-none u-gallery-1">
       <div class="u-gallery-inner u-gallery-inner-1">
         <div class="u-effect-hover-zoom u-gallery-item">
@@ -223,8 +253,7 @@
     </div>
   </section>
 
-  <!-- Gallery section 3 -->
-  <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85_2">
+  <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85_c">
     <div class="u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-none u-gallery-1">
       <div class="u-gallery-inner u-gallery-inner-1">
         <div class="u-effect-hover-zoom u-gallery-item">
@@ -249,8 +278,7 @@
     </div>
   </section>
 
-  <!-- Gallery section 4 -->
-  <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85_3">
+  <section class="u-align-center u-clearfix u-container-align-center u-section-7" id="carousel_1b85_d">
     <div class="u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-none u-gallery-1">
       <div class="u-gallery-inner u-gallery-inner-1">
         <div class="u-effect-hover-zoom u-gallery-item">
@@ -295,7 +323,6 @@
       <div class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
         <div class="u-layout">
           <div class="u-layout-col">
-
             <div class="u-size-30">
               <div class="u-layout-row">
                 <div class="u-align-center u-container-align-center u-container-style u-layout-cell u-shape-rectangle u-size-30 u-layout-cell-2" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750">
@@ -310,7 +337,7 @@
                             class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form"
                             style="padding:0" name="form">
 
-                        <!-- Anti-spam (optional but safe) -->
+                        <!-- Anti-spam fields -->
                         <input type="text" name="company" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
                         <input type="hidden" name="ts" id="ts">
 
@@ -340,7 +367,7 @@
                         </div>
 
                         <div class="u-align-right u-form-group u-form-submit u-label-top">
-                          <!-- IMPORTANT: not u-btn-submit; real button to avoid Nicepage auto-submit -->
+                          <!-- Real button (NOT u-btn-submit) -->
                           <button type="button"
                                   id="submitBtn"
                                   class="u-active-white u-border-none u-btn u-button-style u-hover-white u-palette-1-base u-text-active-black u-text-body-color u-text-hover-black u-btn-2"
@@ -350,10 +377,9 @@
                           <input type="submit" value="submit" class="u-form-control-hidden">
                         </div>
 
-                        <!-- Inline status -->
                         <div id="formStatus" aria-live="polite"></div>
 
-                        <!-- Keep Nicepage defaults (hidden by CSS) -->
+                        <!-- Nicepage defaults (hidden) -->
                         <div class="u-form-send-message u-form-send-success">Thank you! Your message has been sent.</div>
                         <div class="u-form-send-error u-form-send-message">Unable to send your message. Please fix errors then try again.</div>
                       </form>
@@ -361,7 +387,7 @@
                   </div>
                 </div>
 
-                <!-- Map cell -->
+                <!-- Map column -->
                 <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-3" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750">
                   <div class="u-container-layout u-valign-bottom-lg u-valign-bottom-xl u-valign-top-md u-valign-top-sm u-valign-top-xs u-container-layout-7">
                     <div class="u-expanded-width u-grey-light-2 u-map u-map-1">
@@ -403,7 +429,7 @@
       const status = document.getElementById('formStatus');
       const tsFld  = document.getElementById('ts');
 
-      if (tsFld) tsFld.value = Date.now(); // time-trap
+      if (tsFld) tsFld.value = Date.now(); // anti-spam time trap
 
       function showStatus(type, msg, seconds = 5) {
         status.textContent = msg;
@@ -412,12 +438,12 @@
         if (seconds > 0) setTimeout(() => { status.style.display = 'none'; }, seconds * 1000);
       }
 
-      // Block ANY other submit handler (Nicepage auto-submit) before it runs
+      // Block ANY other submit handler (e.g., Nicepage auto-submit)
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         e.stopPropagation();
         if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-      }, true); // capture
+      }, true); // capture phase
 
       let sending = false; // double-click guard
 
@@ -445,12 +471,11 @@
   </script>
   <!-- ===== End SINGLE submit logic ===== -->
 
-  <!-- ===== Unified lightbox for gallery images ===== -->
+  <!-- ===== (Optional) unified lightbox for gallery images — keep/remove as you wish ===== -->
   <script>
     (function () {
       const imgs = Array.from(document.querySelectorAll('.u-gallery .u-back-image'))
-        .map(img => img.getAttribute('src'))
-        .filter(Boolean);
+        .map(img => img.getAttribute('src')).filter(Boolean);
       if (!imgs.length) return;
 
       const overlay = document.createElement('div');
@@ -461,46 +486,35 @@
       imgEl.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;';
       fig.appendChild(imgEl);
 
-      const mkBtn = (css, label, html) => {
-        const b = document.createElement('button');
-        b.style.cssText = css;
-        b.setAttribute('aria-label', label);
-        b.innerHTML = html;
-        return b;
-      };
-      const btnCss = 'position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;line-height:1;width:48px;height:48px;border-radius:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;';
-      const prev = mkBtn(btnCss + 'left:-64px;', 'Previous image', '&#10094;');
-      const next = mkBtn(btnCss + 'right:-64px;', 'Next image', '&#10095;');
-      const closeBtn = mkBtn('position:absolute;top:-56px;right:-56px;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;width:48px;height:48px;border-radius:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;', 'Close', '&times;');
+      const btnCss='position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;line-height:1;width:48px;height:48px;border-radius:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;';
+      const mk=(css,label,html)=>{const b=document.createElement('button');b.style.cssText=css;b.setAttribute('aria-label',label);b.innerHTML=html;return b;};
+      const prev=mk(btnCss+'left:-64px;','Previous','&#10094;');
+      const next=mk(btnCss+'right:-64px;','Next','&#10095;');
+      const closeBtn=mk('position:absolute;top:-56px;right:-56px;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;width:48px;height:48px;border-radius:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;','Close','&times;');
 
       fig.appendChild(prev); fig.appendChild(next); fig.appendChild(closeBtn);
-      overlay.addEventListener('click', e => { if (e.target === overlay) hide(); });
-      document.addEventListener('keydown', e => {
-        if (overlay.style.display !== 'flex') return;
-        if (e.key === 'Escape') hide();
-        if (e.key === 'ArrowRight') go(1);
-        if (e.key === 'ArrowLeft') go(-1);
-      });
+      overlay.appendChild(fig); document.body.appendChild(overlay);
 
-      overlay.appendChild(fig);
-      document.body.appendChild(overlay);
+      overlay.addEventListener('click',e=>{if(e.target===overlay) hide();});
+      document.addEventListener('keydown',e=>{if(overlay.style.display!=='flex') return; if(e.key==='Escape') hide(); if(e.key==='ArrowRight') go(1); if(e.key==='ArrowLeft') go(-1);});
 
-      let idx = 0, pushed = false;
+      let idx=0,pushed=false;
       function show(i){ idx=(i+imgs.length)%imgs.length; imgEl.src=imgs[idx]; overlay.style.display='flex'; if(!pushed){ history.pushState({lightbox:true},''); pushed=true; } }
       function hide(fromPop){ overlay.style.display='none'; if(pushed && !fromPop){ history.back(); } pushed=false; }
-      function go(step){ show(idx+step); }
-      prev.addEventListener('click', e => { e.stopPropagation(); go(-1); });
-      next.addEventListener('click', e => { e.stopPropagation(); go(1); });
-      closeBtn.addEventListener('click', e => { e.stopPropagation(); hide(false); });
-      window.addEventListener('popstate', () => { if (overlay.style.display==='flex' && pushed) hide(true); });
+      function go(s){ show(idx+s); }
 
-      document.querySelectorAll('.u-gallery .u-gallery-item').forEach(item => {
-        item.addEventListener('click', function (e) {
+      prev.addEventListener('click',e=>{e.stopPropagation(); go(-1);});
+      next.addEventListener('click',e=>{e.stopPropagation(); go(1);});
+      closeBtn.addEventListener('click',e=>{e.stopPropagation(); hide(false);});
+      window.addEventListener('popstate',()=>{ if(overlay.style.display==='flex' && pushed) hide(true); });
+
+      document.querySelectorAll('.u-gallery .u-gallery-item').forEach(item=>{
+        item.addEventListener('click',function(e){
           e.preventDefault(); e.stopPropagation();
-          const clicked = this.querySelector('.u-back-image');
-          const startAt = imgs.indexOf(clicked?.getAttribute('src'));
-          show(startAt >= 0 ? startAt : 0);
-        }, true);
+          const clicked=this.querySelector('.u-back-image');
+          const startAt=imgs.indexOf(clicked?.getAttribute('src'));
+          show(startAt>=0?startAt:0);
+        },true);
       });
     })();
   </script>
