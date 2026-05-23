@@ -666,6 +666,27 @@
           sending = true;
           showStatus('ok', 'Αποστολή…', 0);
           try {
+
+			// Required fields validation
+	        const email = form.email.value.trim();
+	        const name = form.name.value.trim();
+	        const phone = form.phone.value.trim();
+	        const message = form.message.value.trim();
+	
+	        if (!email || !name || !phone || !message) {
+	
+	            showStatus(
+	                'err',
+	                'Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.',
+	                6
+	            );
+
+				sending = false;
+				
+	            return;
+	        }  
+			  
+			  			  
             const data = new FormData(form);
             await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
             showStatus('ok', 'Ευχαριστούμε! Το μήνυμά σας εστάλη.', 5);
