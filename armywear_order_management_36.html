@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARMYWEAR Σύστημα Παραγγελιών Προϊόντων B2B</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg,#2c3e50,#bdc3c7);
+    color: #111827;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: visible;
+    box-shadow: 0 10px 25px rgba(0,0,0,.18);
+}
+
+
+.header {
+    background: #1f2937;
+    color: white;
+    text-align: center;
+    padding: 18px 20px 24px;
+}
+
+.logo {
+    max-width: 230px;
+    width: 100%;
+    height: auto;
+    display: block;    
+    margin: 0 auto 22px auto;    
+    background: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    position: relative;
+    top: 12px;
+}
+
+.header h1 {
+    margin: 0 0 12px;
+    font-size: 38px;
+}
+
+.header p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+
+.content {
+    padding: 25px;
+}
+
+.section {
+    background: #f9fafb;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+
+h2 {
+    color: #1f2937;
+    border-bottom: 3px solid #374151;
+    padding-bottom: 8px;
+    margin-top: 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #111827;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background: white;
+    transition: .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+button {
+    background: #1f2937;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: .2s;
+}
+
+button:hover {
+    opacity: .92;
+    transform: translateY(-1px);
+}
+
+.success-btn {
+    background: #047857;
+}
+
+.danger-btn {
+    background: #b91c1c;
+}
+
+.email-btn {
+    background: #2563eb;
+}
+
+.small-btn {
+    padding: 5px 9px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background: #1f2937;
+    color: white;
+    font-size: 14px;
+}
+
+tr:nth-child(even) {
+    background: #f3f4f6;
+}
+
+tr:hover {
+    background: #e5e7eb;
+}
+
+.invoice {
+    border: 2px solid #1f2937;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    overflow: visible;
+    background: white;
+}
+
+.invoice-header {
+    text-align: center;
+    border-bottom: 2px solid #1f2937;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.notes-box {
+    background: #f3f4f6;
+    border-left: 4px solid #1f2937;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+}
+
+.status-box {
+    background: #eef2ff;
+    color: #1e3a8a;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border: 1px solid #c7d2fe;
+}
+
+.selected-product-preview {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 14px;
+    padding: 8px 10px;
+    line-height: 1.35;
+    font-size: 14px;
+    color: #1f2937;
+    white-space: pre-line;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.required-star {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.action-btn {
+    width: 260px;
+    max-width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.customer-id-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.customer-id-row input {
+    height: 52px;
+}
+
+.customer-id-row button {
+    height: 52px;
+    min-width: 140px;
+}
+
+.products-table-wrapper {
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    scrollbar-gutter: stable;
+}
+
+.products-table-wrapper table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.products-table-wrapper thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #1f2937;
+    color: white;
+}
+
+.top-action-btn {
+    width: 260px;
+    min-height: 56px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.2;
+
+    padding: 8px 16px;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+    vertical-align: top;
+}
+
+.action-main-btn {
+    width: 260px;
+    min-height: 64px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.2;
+
+    padding: 8px 16px;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+    vertical-align: top;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+.selected-product-preview {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .content {
+        padding: 12px;
+    }
+
+    .section {
+        padding: 14px;
+        margin-bottom: 18px;
+    }
+
+    .header {
+        padding: 20px 12px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 16px;
+    }
+
+    #productSelect {
+        min-height: 54px;
+        font-size: 15px;
+        width: 100%;
+        white-space: pre-wrap;
+        line-height: 1.35;
+        
+    }
+
+    #productSelect option {
+        white-space: pre-wrap;
+        padding: 10px 6px;
+        line-height: 1.4;
+    }
+
+    .selected-product-preview {
+        display: block;
+        margin-top: 8px;
+        padding: 10px;
+        background: #eef2ff;
+        border-left: 4px solid #2563eb;
+        border-radius: 6px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #1f2937;
+        word-break: break-word;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .products-table-wrapper {
+        max-height: 320px;
+        overflow-y: auto;
+        overflow-x: auto;
+        position: relative;
+    }
+
+    .products-table-wrapper thead th {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: #1f2937 !important;
+        color: white !important;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+    #productsTable th,
+    #productsTable td {
+        min-width: 135px;
+    }
+
+    #productsTable th:nth-child(3),
+    #productsTable td:nth-child(3) {
+        min-width: 220px;
+        white-space: normal;
+    }
+
+    /* Order table as mobile cards */
+    #orderTable {
+        display: block;
+        width: 100%;
+        overflow-x: visible;
+        white-space: normal;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+    #orderTable thead {
+        display: none;
+    }
+
+    #orderTable tbody,
+    #orderTable tr,
+    #orderTable td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #orderTable tr {
+        background: white;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    #orderTable td {
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 8px 6px;
+        white-space: normal;
+        font-size: 14px;
+    }
+
+    #orderTable td:last-child {
+        border-bottom: none;
+        text-align: right;
+    }
+
+    #orderTable td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 3px;
+    }
+
+    .small-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    
+
+    
+
+    .invoice-table-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
+    .invoice-table-wrapper table {
+        min-width: 700px;
+    }
+
+
+    .top-action-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .action-main-btn {
+        width: 100%;
+        height: 54px;
+        margin-bottom: 10px;
+    }
+
+
+
+
+}
+
+/* =========================
+   PRINT
+========================= */
+
+@media print {
+
+    @page {
+        size: A4 portrait;
+        margin: 8mm;
+    }
+
+    body {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 12px !important;
+        color: #000 !important;
+    }
+
+    .no-print,
+    .back-button {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    .header,
+    .section:not(.invoice-section),
+    .invoice-section > h2,
+    .invoice-section > button,
+    .status-box {
+        display: none !important;
+    }
+
+    .container,
+    .content,
+    .invoice-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: white !important;
+    }
+
+    .invoice {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        border: 1px solid #000 !important;
+        padding: 12px !important;
+        margin: 0 !important;
+        border-radius: 6px !important;
+        overflow: visible !important;
+    }
+
+    .invoice-header {
+        text-align: center !important;
+        border-bottom: 1px solid #000 !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .invoice-header h3 {
+        font-size: 18px !important;
+        margin: 0 0 8px !important;
+    }
+
+    .invoice-header p {
+        font-size: 13px !important;
+        margin: 0 !important;
+    }
+
+    #customerInfo h4 {
+        font-size: 15px !important;
+        margin-bottom: 10px !important;
+    }
+
+    #customerInfo p {
+        font-size: 12px !important;
+        margin: 6px 0 !important;
+        line-height: 1.35 !important;
+    }
+
+    .invoice table {
+        width: 100% !important;
+        table-layout: fixed !important;
+        border-collapse: collapse !important;
+        margin-top: 14px !important;
+    }
+
+    .invoice thead {
+        display: table-header-group !important;
+    }
+
+    .invoice tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .invoice th,
+    .invoice td {
+        padding: 5px 4px !important;
+        font-size: 11px !important;
+        line-height: 1.25 !important;
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    .invoice th {
+        background: #1f2937 !important;
+        color: white !important;
+
+        font-size: 12px !important;
+        font-weight: bold !important;
+        line-height: 1 !important;
+
+        padding: 2px 1px !important;
+        letter-spacing: -0.3px !important;
+
+        white-space: nowrap !important;
+        word-break: keep-all !important;
+        overflow-wrap: normal !important;
+
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* COLUMN WIDTHS - 6 COLUMNS */
+
+    .invoice th:nth-child(1),
+    .invoice td:nth-child(1) {
+        width: 11%;
+    }
+
+    .invoice th:nth-child(2),
+    .invoice td:nth-child(2) {
+        width: 21%;
+    }
+
+    .invoice th:nth-child(3),
+    .invoice td:nth-child(3) {
+        width: 39%;
+    }
+
+    .invoice th:nth-child(4),
+    .invoice td:nth-child(4) {
+        width: 10%;
+    }
+
+    .invoice th:nth-child(5),
+    .invoice td:nth-child(5) {
+        width: 10%;
+    }
+
+    .invoice th:nth-child(6),
+    .invoice td:nth-child(6) {
+        width: 9%;
+    }
+
+    #totals {
+        font-size: 13px !important;
+        margin-top: 16px !important;
+    }
+
+    #totals p {
+        margin: 6px 0 !important;
+    }
+
+    .notes-box {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        padding: 10px !important;
+        margin-top: 8px !important;
+    }
+
+    h4 {
+        font-size: 14px !important;
+        margin-top: 18px !important;
+        margin-bottom: 8px !important;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <img
+            src="armywear_6_logo_sm.jpg"
+            alt="ARMY WEAR Logo"
+            class="logo">    
+
+<div class="header">
+    <h1>📦 ARMYWEAR Σύστημα Παραγγελιών Προϊόντων B2B</h1>
+    <p>Χονδρική Πώληση</p>    
+</div>
+
+<div class="no-print" style="text-align:center; margin:21px 0 0px 0;">
+    <a
+        href="https://www.armywear.gr"
+        target="_blank"
+        style="
+            display:inline-block;
+            background:#0b8457;
+            color:white;
+            padding:12px 28px;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+            font-size:16px;
+            transition:0.2s;
+        "
+        onmouseover="this.style.opacity='0.9'"
+        onmouseout="this.style.opacity='1'"
+    >
+        ← Επιστροφή στο www.armywear.gr
+    </a>
+</div>
+
+<div class="content">
+
+<div id="statusBox" class="status-box">
+    Φόρτωση προϊόντων...
+</div>
+
+
+
+
+<div class="section">
+    <h2>👤 Στοιχεία Πελάτη</h2>
+
+    <div class="form-grid">
+        <input type="hidden" id="customerId">
+        <div>
+            <label>ΑΦΜ</label>
+            <input type="text" id="vatNumber">
+        </div>
+
+        <div>
+            <label>
+                Επωνυμία
+                <span class="required-star">*</span>
+            </label>
+
+            <input type="text" id="companyName">
+        </div>
+
+        <div>
+            <label>Διεύθυνση</label>
+            <input type="text" id="customerAddress">
+        </div>
+
+        <div>
+            <label>
+                Τηλέφωνο
+                <span class="required-star">*</span>
+            </label>
+
+            <input type="text" id="customerPhone">
+        </div>
+
+        <div>
+            <label>
+                Email
+                <span class="required-star">*</span>
+            </label>
+
+            
+            <input type="text" id="customerEmail" inputmode="email" autocomplete="email">
+        </div>
+
+        
+        <button
+            type="button"
+            onclick="loadCustomerByEmail()"
+            class="success-btn"
+            style="
+                height: 48px;
+                min-width: 222px;
+                padding: 0 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                white-space: nowrap;
+                margin-top: 21px;
+            ">
+            Φόρτωση στοιχείων πελάτη με Email
+        </button>
+
+    </div>
+
+    <div style="margin-top:20px;">
+        <label>Σχόλια Πελάτη</label>
+        <textarea id="clientComments"></textarea>
+    </div>
+</div>
+
+<div class="section">
+    <h2>📦 Προϊόντα</h2>
+    
+    <button onclick="loadAllData()" class="success-btn" style="display:none;">
+        Ανανέωση από Google Sheets
+    </button>
+
+    <div class="products-table-wrapper">
+        <table id="productsTable">
+            <thead>
+                <tr>
+                    <th>Κωδικός</th>
+                    <th>Κατηγορία</th>
+                    <th>Περιγραφή</th>
+                    <th>Μεγέθη</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+
+</div>
+
+
+
+<div class="section">
+    <h2>📝 Παραγγελία</h2>
+
+    <div style="max-width:650px;">
+        <label>Αναζήτηση</label>
+        <input type="text" id="productSearch" oninput="filterProductOptions()" placeholder="Αναζήτηση προϊόντος">
+
+        <label style="margin-top:15px;">Επιλογή Προϊόντος</label>
+        
+        <select id="productSelect" onchange="updateSelectedProductPreview()">
+        <option value="">-- Περιμένετε να φορτωθούν τα προϊόντα --</option>
+        </select>
+
+        <div id="selectedProductPreview" class="selected-product-preview"></div>
+
+        <label style="margin-top:15px;">Ποσότητα</label>
+        <input type="number" id="quantity" min="1">
+
+        <button onclick="addToOrder()" class="action-btn top-action-btn">Προσθήκη προϊόντος</button>
+        <button onclick="clearOrder()" class="danger-btn top-action-btn">Διαγραφή παραγγελίας</button>
+
+
+
+        <button
+            id="cancelEditBtn"
+            onclick="cancelEdit()"
+            class="danger-btn"
+            style="display:none; background:#6b7280;">
+            Ακύρωση επεξεργασίας προϊόντος
+        </button>
+    </div>
+
+    <table id="orderTable" style="display:none;">
+        <thead>
+            <tr>
+                <th>Κωδικός</th>
+                <th>Κατηγορία</th>
+                <th>Προϊόν</th>
+                <th>Χρώμα</th>
+                <th>Μέγεθος</th>
+                <th>Ποσότητα</th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="orderTableBody"></tbody>
+    </table>
+</div>
+
+<div class="section invoice-section">
+    <h2>🧾 Παραγγελία</h2>   
+
+
+    <button
+        id="generateInvoiceBtn"
+        onclick="generateInvoice()"
+        class="action-btn action-main-btn"
+        style="display:none;"
+    >
+        Δημιουργία/Προβολή Παραγγελίας
+    </button>
+
+    <button
+        id="printBtn"
+        onclick="printOrder()"
+        class="success-btn action-btn action-main-btn"
+        style="display:none;"
+    >
+        PDF / Εκτύπωση
+    </button>
+
+    <button
+        id="sendEmailBtn"
+        onclick="submitOrderToSheet()"
+        class="email-btn action-btn action-main-btn"
+        style="display:none;"
+    >
+        Αποστολή Παραγγελίας
+    </button>
+
+    <div
+        id="sendingMessage"
+        style="
+            display:none;
+            margin-top:10px;
+            color:#1e3a8a;
+            font-weight:bold;
+        ">
+        ⏳ Η παραγγελία αποστέλλεται... Παρακαλώ περιμένετε.
+    </div>
+
+    <div id="invoice" class="invoice" style="display:none;">
+        <div class="invoice-header">
+            <h3>ΠΑΡΑΓΓΕΛΙΑ ΠΡΟΪΟΝΤΩΝ</h3>
+            <p id="invoiceDate"></p>
+        </div>
+
+        <div id="customerInfo"></div>
+
+        <div class="invoice-table-wrapper">
+            <table class="pdf-invoice-table">
+                <thead>
+                    <tr>
+                        <th>Κωδ.</th>
+                        <th>Κατηγορία</th>
+                        <th>Προϊόν</th>
+                        <th>Χρώμα</th>
+                        <th>Μέγ.</th>
+                        <th>Ποσ.</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceTableBody"></tbody>
+            </table>
+        </div>
+
+        <div id="totals"></div>
+    </div>
+</div>
+
+</div>
+</div>
+
+<script>
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbynjWy_AfQOsGXBWC63yPFlVItvbIqGTnbDg2wZUclwjOI7r_xMVbiADs8X40QbQfXd/exec";
+
+
+let products = [];
+let shortProducts = [];
+let currentOrder = [];
+let orderTerms = "";
+let emailSettings = {};
+let productsLoaded = false;
+let currentOrderRef = "";
+let editingOrderIndex = -1;
+
+function setStatus(text) {
+    document.getElementById("statusBox").innerHTML = text;
+}
+
+let productsExpanded = false;
+const PRODUCT_PREVIEW_LIMIT = 12;
+
+function toggleProductsTable() {
+    productsExpanded = !productsExpanded;
+
+    loadProductsTable();
+
+    const btn = document.getElementById("toggleProductsBtn");
+
+    btn.textContent = productsExpanded
+        ? "Εμφάνιση λιγότερων προϊόντων"
+        : "Εμφάνιση όλων των προϊόντων";
+}
+
+function escapeHtml(value) {
+    return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function apiGet(action) {
+    return new Promise((resolve, reject) => {
+        const callbackName =
+            "jsonp_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+
+        const script = document.createElement("script");
+
+        window[callbackName] = function(data) {
+            resolve(data);
+            delete window[callbackName];
+
+            if (document.body.contains(script)) {
+                document.body.removeChild(script);
+            }
+        };
+
+        script.src =
+            GOOGLE_SCRIPT_URL +
+            "?action=" +
+            encodeURIComponent(action) +
+            "&callback=" +
+            callbackName +
+            "&t=" +
+            Date.now();
+
+        script.onerror = function() {
+            delete window[callbackName];
+
+            if (document.body.contains(script)) {
+                document.body.removeChild(script);
+            }
+
+            reject("JSONP Error");
+        };
+
+        document.body.appendChild(script);
+    });
+}
+
+async function loadAllData() {
+    try {
+        setStatus("Παρακαλώ περιμένετε μέχρι να φορτωθούν τα προϊόντα...");
+
+        const productsResult = await apiGet("products");
+        const shortProductsResult = await apiGet("productsShort");
+        const termsResult = await apiGet("terms");
+        const emailResult = await apiGet("emailSettings");
+
+        products = normalizeProducts(productsResult.products || []);
+        shortProducts = normalizeShortProducts(shortProductsResult.products || []);
+
+        orderTerms = termsResult.terms || "";
+        emailSettings = emailResult.settings || {};
+        productsLoaded = true;
+
+        loadProductsTable();
+        loadProductOptions();
+
+        setStatus("Φορτώθηκαν " + products.length + " παραλλαγές προϊόντων (κατηγορία, κωδικός, περιγραφή, χρώμα, μέγεθος) για παραγγελία.");
+
+    } catch (error) {
+        console.error(error);
+        productsLoaded = false;
+        setStatus("Δεν έγινε φόρτωση προϊόντων.");
+        alert("Δεν έγινε φόρτωση προϊόντων. Ελέγξτε το Google Apps Script.");
+    }
+}
+
+function normalizeProducts(rows) {
+    return rows.map(row => ({
+        category: row.Category || "",
+        code: String(row.Code || ""),
+        name: row.Name || "",
+        color: row.Color || row.Colors || "",
+        size: row.Size || row.Sizes || "",
+        price: Number(row.Price || 0),
+        minOrder: Number(row.MinOrder || 1),
+        searchKeywords: row.Search_Keywords || ""
+    }));
+}
+
+function normalizeShortProducts(rows) {
+    return rows.map(row => ({
+        code: String(row.Code || ""),
+        category: row.Category || "",
+        name: row.Name || "",
+        size: row.Sizes || row.Size || ""
+    }));
+}
+
+function normalizeSearchText(text) {
+    return String(text || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ς/g, "σ")
+        .replace(/[\-_/(),]/g, " ")
+        .replace(/\s+/g, " ")
+
+        .trim();
+}
+
+
+function loadProductsTable() {
+    const tbody = document.querySelector("#productsTable tbody");
+    tbody.innerHTML = "";
+
+    shortProducts.forEach(product => {
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${product.code}</td>
+            <td>${product.category}</td>
+            <td>${product.name}</td>
+            <td>${product.size}</td>
+        `;
+    });
+}
+
+function loadProductOptions(filtered = products) {
+    const select = document.getElementById("productSelect");
+
+    select.innerHTML = `<option value="">-- Επιλέξτε Προϊόν --</option>`;
+
+    let previousCode = "";
+
+    filtered.forEach(product => {
+        const originalIndex = products.indexOf(product);
+
+        if (previousCode !== "" && previousCode !== product.code) {
+            const separator = document.createElement("option");
+            separator.disabled = true;
+            separator.textContent = "───────────────";
+            select.appendChild(separator);
+        }
+
+        const option = document.createElement("option");
+
+        // IMPORTANT: use originalIndex, not product.id
+        option.value = originalIndex;
+
+        if (window.innerWidth <= 768) {
+
+            option.textContent =
+                `${product.code} | ${product.name}
+        Χρώμα: ${product.color} | Μέγεθος: ${product.size}`;
+
+        } else {
+
+            option.textContent =
+                `${product.code} | ${product.name} | ${product.color} | ${product.size}`;
+        }
+
+        option.dataset.fullText =
+            `${product.code}\n${product.category}\n${product.name}\nΧρώμα: ${product.color}\nΜέγεθος: ${product.size}`;
+
+        select.appendChild(option);
+
+        previousCode = product.code;
+    });
+
+    updateSelectedProductPreview();
+}
+
+
+
+function updateSelectedProductPreview() {
+    const select = document.getElementById("productSelect");
+    const preview = document.getElementById("selectedProductPreview");
+
+    if (!preview) return;
+
+    const selectedOption = select.options[select.selectedIndex];
+
+    if (!selectedOption || !selectedOption.value) {
+        preview.textContent = "";
+        preview.style.display = "none";
+        return;
+    }
+
+    preview.textContent =
+        selectedOption.dataset.fullText || selectedOption.textContent;
+
+    preview.style.display = "block";
+
+    // Mobile auto-scroll to quantity field
+    if (window.innerWidth <= 768) {
+
+        setTimeout(() => {
+
+            const quantityField =
+                document.getElementById("quantity");
+
+            if (quantityField) {
+
+                quantityField.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
+
+        }, 250);
+    }
+}
+
+function printOrder() {
+
+    const invoice = document.getElementById("invoice");
+
+    if (currentOrder.length === 0) {
+        alert("Δεν υπάρχει παραγγελία για εκτύπωση.");
+        return;
+    }
+
+    if (!invoice || invoice.style.display !== "block" || invoice.dataset.generated !== "true") {
+        alert(
+            "Παρακαλώ πατήστε πρώτα «Δημιουργία/Προβολή Παραγγελίας» " +
+            "και μετά χρησιμοποιήστε το κουμπί «PDF / Εκτύπωση»."
+        );
+        return;
+    }
+
+    window.print();
+}
+
+
+function filterProductOptions() {
+    if (!productsLoaded) return;
+
+    const searchInput = document.getElementById("productSearch");
+    const select = document.getElementById("productSelect");
+
+    const search = normalizeSearchText(searchInput.value);
+    const words = search.split(/\s+/).filter(Boolean);
+
+    if (search === "γεν") {
+    
+        const filtered = products.filter(product => {
+            const txt = normalizeSearchText(`
+                ${product.category}
+                ${product.code}
+                ${product.name}
+                ${product.color}
+                ${product.size}
+                ${product.searchKeywords}
+            `);
+
+            return txt.includes("ναυτικο");
+        });
+
+        loadProductOptions(filtered);
+        select.size = Math.min(filtered.length + 1, 8);
+        return;
+    }
+   
+
+    if (search === "γεσ" || search === "γες") {
+
+        const filtered = products.filter(product => {
+            const txt = normalizeSearchText(`
+                ${product.category}
+                ${product.code}
+                ${product.name}
+                ${product.color}
+                ${product.size}
+                ${product.searchKeywords}
+            `);
+
+            return (
+                txt.includes("γεσ") ||
+                txt.includes("γ ε σ") ||
+                txt.includes("στρατοσ") ||
+                txt.includes("στρατος") ||
+                txt.includes("γενικο επιτελειο στρατου")
+            );
+        });
+
+        loadProductOptions(filtered);
+        select.size = Math.min(filtered.length + 1, 8);
+        return;
+    }    
+
+
+    if (
+        search === "ελ" ||
+        search === "ελασ" ||
+        search === "ελ-" ||
+        search === "ελας"
+    ) {
+
+        const filtered = products.filter(product => {
+            const txt = normalizeSearchText(`
+                ${product.category}
+                ${product.code}
+                ${product.name}
+                ${product.color}
+                ${product.size}
+                ${product.searchKeywords}
+            `);
+
+            return (
+                txt.includes("ελασ") ||
+                txt.includes("ελληνικη αστυνομια") ||
+                txt.includes("αστυνομια")
+            );
+        });
+
+        loadProductOptions(filtered);
+        select.size = Math.min(filtered.length + 1, 8);
+
+        if (window.innerWidth <= 768) {
+            select.focus();
+        } else {
+            searchInput.focus();
+        }
+
+        return;
+    }
+
+
+
+    if (search.length === 0) {
+        loadProductOptions(products);
+        select.size = 1;
+        return;
+    }
+
+    if (search.length < 3) {
+        select.size = 1;
+        select.innerHTML = `<option value="">-- Πληκτρολογήστε τουλάχιστον 3 χαρακτήρες --</option>`;
+        return;
+    }
+
+    const filtered = products.filter(product => {
+        const txt = normalizeSearchText(`
+            ${product.category}
+            ${product.code}
+            ${product.name}
+            ${product.color}
+            ${product.size}
+            ${product.searchKeywords}
+        `);
+
+        return words.every(word => txt.includes(word));
+    });
+
+    loadProductOptions(filtered);
+
+    if (filtered.length > 0) {
+        select.size = Math.min(filtered.length + 1, 8);
+        searchInput.focus();
+    } else {
+        select.size = 1;
+        select.innerHTML = `<option value="">-- Δεν βρέθηκαν προϊόντα --</option>`;
+    }
+}
+
+
+function getCustomerData() {
+    return {
+        customerId: document.getElementById("customerId").value.trim(),
+        vat: document.getElementById("vatNumber").value.trim(),
+        company: document.getElementById("companyName").value.trim(),
+        address: document.getElementById("customerAddress").value.trim(),
+        phone: document.getElementById("customerPhone").value.trim(),
+        email: document.getElementById("customerEmail").value.trim(),
+        comments: document.getElementById("clientComments").value.trim()
+    };
+}
+
+async function loadCustomerById() {
+
+    const customerId =
+        document.getElementById("customerId")
+        .value
+        .trim();
+
+    if (!customerId) {
+        alert("Δώστε Customer ID.");
+        return;
+    }
+
+    try {
+
+        const result = await fetch(
+            GOOGLE_SCRIPT_URL +
+            "?action=customerById&customerId=" +
+            encodeURIComponent(customerId)
+        );
+
+        const data = await result.json();
+
+        if (!data.success) {
+            alert("Δεν βρέθηκε πελάτης.");
+            return;
+        }
+
+        const c = data.customer;
+
+        document.getElementById("vatNumber").value =
+            c.VAT || "";
+
+        document.getElementById("companyName").value =
+            c.CompanyName || "";
+
+        document.getElementById("customerAddress").value =
+            c.Address || "";
+
+        document.getElementById("customerPhone").value =
+            c.Phone || "";
+
+        document.getElementById("customerEmail").value =
+            c.Email || "";
+
+        document.getElementById("clientComments").value =
+            c.Comments || "";
+
+        // force UI repaint before popup
+        await new Promise(resolve => setTimeout(resolve, 100));    
+
+        alert("Τα στοιχεία πελάτη φορτώθηκαν.");
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Σφάλμα φόρτωσης πελάτη.");
+    }
+}
+
+async function loadCustomerByEmail() {
+    const email = document.getElementById("customerEmail").value.trim();
+
+    if (!email) {
+        alert("Δώστε Email πελάτη.");
+        return;
+    }
+
+    try {
+        const result = await fetch(
+            GOOGLE_SCRIPT_URL +
+            "?action=customerByEmail&email=" +
+            encodeURIComponent(email)
+        );
+
+        const data = await result.json();
+
+        if (!data.success) {
+            alert("Δεν βρέθηκε πελάτης με αυτό το email.");
+            return;
+        }
+
+        const c = data.customer;
+
+        document.getElementById("customerId").value = c.ID || "";
+        document.getElementById("vatNumber").value = c.VAT || "";
+        document.getElementById("companyName").value = c.CompanyName || "";
+        document.getElementById("customerAddress").value = c.Address || "";
+        document.getElementById("customerPhone").value = c.Phone || "";
+        document.getElementById("customerEmail").value = c.Email || "";
+        document.getElementById("clientComments").value = c.Comments || "";
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        alert("Τα στοιχεία πελάτη φορτώθηκαν με βάση το email.");
+
+    } catch (err) {
+        console.error(err);
+        alert("Σφάλμα φόρτωσης πελάτη με email.");
+    }
+}
+
+function validateCustomer() {
+
+    const c = getCustomerData();
+
+    if (!c.company) {
+        alert("Παρακαλώ συμπληρώστε την Επωνυμία.");
+        document.getElementById("companyName").focus();
+        return false;
+    }
+
+    if (!c.phone) {
+        alert("Παρακαλώ συμπληρώστε το Τηλέφωνο.");
+        document.getElementById("customerPhone").focus();
+        return false;
+    }
+
+    if (!c.email) {
+        alert("Παρακαλώ συμπληρώστε το Email.");
+        document.getElementById("customerEmail").focus();
+        return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(c.email)) {
+        alert("Το Email δεν έχει σωστή μορφή.");
+        document.getElementById("customerEmail").focus();
+        return false;
+    }
+
+    return true;
+}
+
+function generateOrderRef() {
+    const now = new Date();
+
+    return "ORD-" +
+        now.getFullYear() +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        String(now.getDate()).padStart(2, "0") +
+        "-" +
+        String(now.getHours()).padStart(2, "0") +
+        String(now.getMinutes()).padStart(2, "0") +
+        String(now.getSeconds()).padStart(2, "0");
+}
+
+function addToOrder() {
+    if (!productsLoaded || products.length === 0) {
+        alert("Παρακαλώ περιμένετε να φορτωθούν πρώτα τα προϊόντα.");
+        return;
+    }
+
+    if (!validateCustomer()) {
+        return;
+    }
+
+    const productIndex = document.getElementById("productSelect").value;
+    const quantity = parseInt(document.getElementById("quantity").value);
+
+    if (productIndex === "" || !quantity || quantity <= 0) {
+        alert("Επιλέξτε προϊόν και σωστή ποσότητα.");
+        return;
+    }
+
+    const product = products[Number(productIndex)];
+
+    if (!product) {
+        alert("Το προϊόν δεν βρέθηκε.");
+        return;
+    }
+
+    if (quantity < product.minOrder) {
+        alert("Η ελάχιστη παραγγελία είναι " + product.minOrder + " τεμάχια.");
+        return;
+    }
+
+
+       
+    if (editingOrderIndex !== -1) {
+        currentOrder[editingOrderIndex] = { product, quantity };
+        editingOrderIndex = -1;
+        document.getElementById("cancelEditBtn").style.display = "none";
+    } else {
+        const existing = currentOrder.find(i =>
+            i.product.code === product.code &&
+            i.product.category === product.category &&
+            i.product.name === product.name &&
+            i.product.color === product.color &&
+            i.product.size === product.size
+        );
+
+        if (existing) {
+            existing.quantity += quantity;
+        } else {
+            currentOrder.push({ product, quantity });
+        }
+    }
+
+
+  
+    document.getElementById("quantity").value = "";
+    
+    document.getElementById("productSelect").selectedIndex = 0;
+    document.getElementById("productSelect").size = 1;
+
+    const preview = document.getElementById("selectedProductPreview");
+    if (preview) {
+        preview.textContent = "";
+        preview.style.display = "none";
+    }
+
+    // loadProductOptions();
+
+    updateOrderTable();
+
+    if (invoiceVisible()) {
+        generateInvoice();
+    }
+}
+
+function updateOrderTable() {
+    const table = document.getElementById("orderTable");
+    const tbody = document.getElementById("orderTableBody");
+
+    tbody.innerHTML = "";
+
+    if (currentOrder.length === 0) {
+        table.style.display = "none";
+        document.getElementById("generateInvoiceBtn").style.display = "none";
+
+        document.getElementById("sendEmailBtn").style.display = "none";
+        document.getElementById("printBtn").style.display = "none";
+        return;
+    }
+
+    table.style.display = "table";
+
+    currentOrder.forEach((item, index) => {
+        const total = item.quantity * item.product.price;
+        const row = tbody.insertRow();      
+
+
+        row.innerHTML = `
+            <td data-label="Κωδικός">${item.product.code}</td>
+            <td data-label="Κατηγορία">${item.product.category}</td>
+            <td data-label="Προϊόν">${item.product.name}</td>
+            <td data-label="Χρώμα">${item.product.color}</td>
+            <td data-label="Μέγεθος">${item.product.size}</td>
+            <td data-label="Ποσότητα">${item.quantity}</td>          
+        
+            <td data-label="Ενέργειες">
+                <button class="success-btn small-btn" onclick="editOrderRow(${index})">
+                    Επεξεργασία
+                </button>
+
+                <button class="danger-btn small-btn" onclick="removeFromOrder(${index})">
+                    X
+                </button>
+            </td>
+
+        `;
+
+
+    });
+
+    
+
+    document.getElementById("generateInvoiceBtn").style.display = "inline-block";
+
+    const printBtn = document.getElementById("printBtn");
+    printBtn.style.display = "inline-block";
+    printBtn.disabled = false;
+
+}
+
+function editOrderRow(index) {
+    const item = currentOrder[index];
+
+    editingOrderIndex = index;
+
+    const productIndex = products.findIndex(p =>
+        p.code === item.product.code &&
+        p.category === item.product.category &&
+        p.name === item.product.name &&
+        p.color === item.product.color &&
+        p.size === item.product.size
+    );
+
+    if (productIndex === -1) {
+        alert("Το προϊόν δεν βρέθηκε στη λίστα.");
+        return;
+    }
+
+    document.getElementById("productSearch").value = "";
+    loadProductOptions(products);
+
+    document.getElementById("productSelect").value = productIndex;
+    document.getElementById("quantity").value = item.quantity;
+
+    updateSelectedProductPreview();
+
+    document.getElementById("cancelEditBtn").style.display = "inline-block";
+    document.getElementById("quantity").focus();
+}
+
+function removeFromOrder(index) {
+    currentOrder.splice(index, 1);
+    updateOrderTable();
+
+    if (currentOrder.length === 0) {
+        document.getElementById("invoice").style.display = "none";
+        document.getElementById("sendEmailBtn").style.display = "none";
+        document.getElementById("printBtn").disabled = true;
+        return;
+    }
+
+    if (invoiceVisible()) {
+        generateInvoice();
+    }
+}
+
+function clearOrder() {
+    
+    if (!confirm("Είστε σίγουροι ότι θέλετε να διαγράψετε την παραγγελία;")) {
+        return;
+    }
+    
+    currentOrder = [];
+    currentOrderRef = "";
+    editingOrderIndex = -1;
+
+    updateOrderTable();
+
+    document.getElementById("invoice").style.display = "none";
+    document.getElementById("invoice").dataset.generated = "false";
+
+    document.getElementById("sendEmailBtn").style.display = "none";
+    document.getElementById("cancelEditBtn").style.display = "none";
+    document.getElementById("printBtn").style.display = "none";
+
+   
+
+
+    document.getElementById("productSearch").value = "";
+    document.getElementById("quantity").value = "";
+
+    loadProductOptions(products);
+
+    document.getElementById("productSelect").selectedIndex = 0;
+    document.getElementById("productSelect").size = 1;
+
+    setStatus("");
+}
+
+function cancelEdit() {
+
+    editingOrderIndex = -1;
+
+    document.getElementById("productSearch").value = "";
+    document.getElementById("quantity").value = "";
+
+    loadProductOptions(products);
+
+    document.getElementById("productSelect").selectedIndex = 0;
+    document.getElementById("productSelect").size = 1;
+
+    const preview = document.getElementById("selectedProductPreview");
+
+    if (preview) {
+        preview.textContent = "";
+        preview.style.display = "none";
+    }
+
+    document.getElementById("cancelEditBtn").style.display = "none";
+}
+
+function calculateTotals() {
+    let net = 0;
+
+    currentOrder.forEach(item => {
+        net += item.quantity * item.product.price;
+    });
+
+    const vat = net * 0.24;
+
+    return {
+        net,
+        vat,
+        grand: net + vat
+    };
+}
+
+function invoiceVisible() {
+    return document.getElementById("invoice").style.display === "block";
+}
+
+function generateInvoice() {
+    if (!validateCustomer()) {
+        return;
+    }
+
+    if (currentOrder.length === 0) {
+        alert("Δεν υπάρχουν προϊόντα στην παραγγελία.");
+        return;
+    }
+
+    if (!currentOrderRef) {
+        currentOrderRef = generateOrderRef();
+    }
+
+    const customer = getCustomerData();
+    const totals = calculateTotals();
+
+    document.getElementById("invoiceDate").textContent =
+        "Ημερομηνία: " + new Date().toLocaleDateString("el-GR");
+
+    document.getElementById("customerInfo").innerHTML = `
+        <h4>Στοιχεία Πελάτη</h4>
+        <p><strong>Αριθμός Παραγγελίας:</strong> ${currentOrderRef}</p>
+               
+        <p><strong>Επωνυμία:</strong> ${escapeHtml(customer.company)}</p>
+        <p><strong>ΑΦΜ:</strong> ${escapeHtml(customer.vat)}</p>
+        <p><strong>Διεύθυνση:</strong> ${escapeHtml(customer.address)}</p>        
+        <p><strong>Τηλέφωνο:</strong> ${escapeHtml(customer.phone)}</p>       
+        <p><strong>Email:</strong> ${escapeHtml(customer.email)}</p>
+    `;
+
+    const tbody = document.getElementById("invoiceTableBody");
+    tbody.innerHTML = "";
+
+    
+    let totalQuantity = 0;
+
+    currentOrder.forEach(item => {
+        const total = item.quantity * item.product.price;
+        const row = tbody.insertRow();
+
+        totalQuantity += item.quantity;
+
+        row.innerHTML = `
+            <td>${item.product.code}</td>
+            <td>${item.product.category}</td>
+            <td>${item.product.name}</td>
+            <td>${item.product.color}</td>
+            <td>${item.product.size}</td>
+            <td>${item.quantity}</td>
+            
+        `;
+    });
+
+    const totalRow = tbody.insertRow();
+
+    
+    totalRow.innerHTML = `
+        <td colspan="5" style="text-align:right; font-weight:bold;">
+            Σύνολο Ποσότητας
+        </td>
+        <td style="font-weight:bold;">
+            ${totalQuantity}
+        </td>
+    `;
+   
+    document.getElementById("totals").innerHTML = `
+     
+
+        <div style="text-align:left; margin-top:30px;">
+            <h4>Σχόλια Πελάτη</h4>
+            
+            <div class="notes-box">${escapeHtml(customer.comments || "-")}</div>
+
+            <h4>Όροι Παραγγελίας</h4>
+            
+            <div class="notes-box">${escapeHtml(orderTerms || "-")}</div>
+        </div>
+    `;
+
+    document.getElementById("invoice").style.display = "block";
+
+    // Smooth scroll to invoice section
+    setTimeout(() => {
+
+        document.querySelector(".invoice-section").scrollIntoView({    
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }, 200);
+
+    document.getElementById("invoice").dataset.generated = "true";
+
+    document.getElementById("sendEmailBtn").style.display = "inline-block";
+}
+
+function buildEmailBody() {
+    const customer = getCustomerData();
+    const totals = calculateTotals();
+
+    let lines = [];
+
+    lines.push("ΠΑΡΑΓΓΕΛΙΑ ΠΡΟΪΟΝΤΩΝ");
+    lines.push("");
+    lines.push("Αριθμός Παραγγελίας: " + currentOrderRef);
+    lines.push("Ημερομηνία: " + new Date().toLocaleDateString("el-GR"));
+    lines.push("");
+    lines.push("ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ");
+    lines.push("Επωνυμία: " + customer.company);
+    lines.push("ΑΦΜ: " + customer.vat);
+    lines.push("Διεύθυνση: " + customer.address);
+    lines.push("Τηλέφωνο: " + customer.phone);
+    lines.push("Email: " + customer.email);
+    lines.push("");
+    lines.push("ΠΡΟΪΟΝΤΑ");
+
+    currentOrder.forEach(item => {
+        const total = item.quantity * item.product.price;
+
+        lines.push(
+            item.product.code +
+            " | " +
+            item.product.category +
+            " | " +
+            item.product.name +
+            " | Χρώμα: " +
+            item.product.color +
+            " | Μέγεθος: " +
+            item.product.size +
+            " | Ποσότητα: " +
+            item.quantity +
+            " | Τιμή: €" +
+            item.product.price.toFixed(2) +
+            " | Σύνολο: €" +
+            total.toFixed(2)
+        );
+    });
+
+    lines.push("");
+    lines.push("Καθαρό: €" + totals.net.toFixed(2));
+    lines.push("ΦΠΑ: €" + totals.vat.toFixed(2));
+    lines.push("Σύνολο: €" + totals.grand.toFixed(2));
+    lines.push("");
+    lines.push("ΣΧΟΛΙΑ ΠΕΛΑΤΗ");
+    lines.push(customer.comments || "-");
+    lines.push("");
+    lines.push("ΟΡΟΙ ΠΑΡΑΓΓΕΛΙΑΣ");
+    lines.push(orderTerms || "-");
+
+    return lines.join("\n");
+}
+
+function buildPdfHtml() {
+    const customer = getCustomerData();
+
+    let totalQuantity = 0;
+    let rows = "";
+
+    currentOrder.forEach(item => {
+        totalQuantity += item.quantity;
+
+        rows += `
+            <tr>
+                <td>${item.product.code}</td>
+                <td>${item.product.category}</td>
+                <td>${item.product.name}</td>
+                <td>${item.product.color}</td>
+                <td>${item.product.size}</td>
+                <td style="text-align:center;">${item.quantity}</td>
+            </tr>
+        `;
+    });
+
+    return `
+               
+        <p>ARMYWEAR.GR</p>
+    
+        <p>Σας ευχαριστούμε πολύ για την παραγγελία σας.</p> 
+        <p>Η παραγγελία σας βρίσκεται υπό επεξεργασία και θα ενημερωθείτε για την πορεία της τηλεφωνικά ή μέσω ηλεκτρονικού ταχυδρομείου (email).</p>
+
+        <p>Για οποιαδήποτε επιπλέον πληροφορία χρειαστείτε, μη διστάσετε να επικοινωνήσετε μαζί μας.</p>
+        <p> Θα χαρούμε να σας εξυπηρετήσουμε!</p>
+
+        <h3>ΠΑΡΑΓΓΕΛΙΑ ΠΡΟΪΟΝΤΩΝ</h3>
+
+        <p><strong>Αριθμός Παραγγελίας:</strong> ${currentOrderRef}</p>
+        
+        <p><strong>Customer ID:</strong> ${document.getElementById("customerId").value.trim() || "-"}</p>
+        <p><strong>Ημερομηνία:</strong> ${new Date().toLocaleDateString("el-GR")}</p>
+
+        <h4>Στοιχεία Πελάτη</h4>
+        <p><strong>Επωνυμία:</strong> ${customer.company}</p>
+        <p><strong>ΑΦΜ:</strong> ${customer.vat}</p>
+        <p><strong>Διεύθυνση:</strong> ${customer.address}</p>
+        <p><strong>Τηλέφωνο:</strong> ${customer.phone}</p>
+        <p><strong>Email:</strong> ${customer.email}</p>
+
+        
+        <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%; table-layout:fixed;">    
+            <thead>
+                <tr style="background:#1f2937; color:white;">
+                    <th style="width:9%; font-size:15px; padding:2px 1px; line-height:1; white-space:nowrap;">Κωδ.</th>
+                    <th style="width:27%; font-size:15px; padding:2px 1px; line-height:1; white-space:nowrap;">Κατηγ.</th>
+                    <th style="width:38%; font-size:15px; padding:2px 1px; line-height:1; white-space:nowrap;">Προϊόν</th>
+                    <th style="width:9%; font-size:15px; padding:2px 1px; line-height:1; white-space:nowrap;">Χρ.</th>
+                    <th style="width:8%; font-size:15px; padding:2px 1px; line-height:1; white-space:nowrap;">Μέγ.</th>
+                    <th style="width:9%; font-size:15px; padding:2px 1px; line-height:1; white-space:nowrap;">Ποσ.</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rows}
+                <tr>
+                    <td colspan="5" style="text-align:right;"><strong>Σύνολο Ποσότητας</strong></td>
+                    <td style="text-align:center;"><strong>${totalQuantity}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Σχόλια Πελάτη</h4>
+        <p>${customer.comments || "-"}</p>
+
+        <h4>Όροι Παραγγελίας</h4>
+        <p>${orderTerms || "-"}</p>
+    `;
+}
+
+function buildCustomerEmailHtml() {
+    const customer = getCustomerData();
+
+    let totalQuantity = 0;
+    let rows = "";
+
+    currentOrder.forEach(item => {
+        totalQuantity += item.quantity;               
+
+        rows += `
+            <tr>
+                <td style="font-size:14px; padding:8px 6px; text-align:center;">${item.product.code}</td>
+                <td style="font-size:14px; padding:8px 6px; text-align:center;">${item.product.category}</td>
+                <td style="font-size:14px; padding:8px 6px; text-align:center;">${item.product.name}</td>
+                <td style="font-size:14px; padding:8px 6px; text-align:center;">${item.product.color}</td>
+                <td style="font-size:14px; padding:8px 6px; text-align:center;">${item.product.size}</td>
+                <td style="font-size:14px; padding:8px 6px; text-align:center;">${item.quantity}</td>
+            </tr>
+        `;    
+
+            });
+
+    return `            
+                
+        <table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 20px auto;">
+            <tr>
+                <td align="center">
+
+                    <a href="https://armywear.gr" target="_blank">
+                        <img 
+                            src="https://www.armywear.gr/images/armywear_6_logo_sm.jpg"
+                            alt="ARMYWEAR Logo"
+                            width="220"
+                            style="display:block; border:0;"
+                        >
+                    </a>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" style="padding-top:8px;">
+
+                    <a 
+                        href="https://armywear.gr"
+                        target="_blank"
+                        style="
+                            font-size:14px;
+                            font-weight:bold;
+                            color:#1f2937;
+                            text-decoration:none;
+                            font-family:Arial,sans-serif;
+                        "
+                    >
+                        www.armywear.gr
+                    </a>
+
+                </td>
+            </tr>
+        </table>
+    
+        <p>Σας ευχαριστούμε πολύ για την παραγγελία σας.</p> 
+        <p>Η παραγγελία σας βρίσκεται υπό επεξεργασία και θα ενημερωθείτε για την πορεία της τηλεφωνικά ή μέσω ηλεκτρονικού ταχυδρομείου (email).</p>
+
+        <p>Για οποιαδήποτε επιπλέον πληροφορία χρειαστείτε, μη διστάσετε να επικοινωνήσετε μαζί μας.</p>
+        <p> Θα χαρούμε να σας εξυπηρετήσουμε!</p>
+
+        <h3>ΠΑΡΑΓΓΕΛΙΑ ΠΡΟΪΟΝΤΩΝ</h3>
+
+        <p><strong>Αριθμός Παραγγελίας:</strong> ${currentOrderRef}</p>        
+        <p><strong>Customer ID:</strong> ${document.getElementById("customerId").value.trim() || "-"}</p>
+        <p><strong>Ημερομηνία:</strong> ${new Date().toLocaleDateString("el-GR")}</p>
+
+        <h4>Στοιχεία Πελάτη</h4>
+        <p><strong>Επωνυμία:</strong> ${customer.company}</p>
+        <p><strong>ΑΦΜ:</strong> ${customer.vat}</p>
+        <p><strong>Διεύθυνση:</strong> ${customer.address}</p>
+        <p><strong>Τηλέφωνο:</strong> ${customer.phone}</p>
+        <p><strong>Email:</strong> ${customer.email}</p>
+
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+            <thead>
+                <tr style="background:#1f2937; color:white;">
+                    <th>Κωδ.</th>
+                    <th>Κατηγορία</th>
+                    <th>Προϊόν</th>
+                    <th>Χρώμα</th>
+                    <th>Μέγ.</th>
+                    <th>Ποσ.</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rows}
+                <tr>
+                    <td colspan="5" style="text-align:right;"><strong>Σύνολο Ποσότητας</strong></td>
+                    <td style="text-align:center;"><strong>${totalQuantity}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Σχόλια Πελάτη</h4>
+        <p>${customer.comments || "-"}</p>
+
+        <h4>Όροι Παραγγελίας</h4>
+        <p>${orderTerms || "-"}</p>
+    `;
+}
+
+
+function buildEmailHtml() {
+    const customer = getCustomerData();
+    const totals = calculateTotals();
+
+    let totalQuantity = 0;
+    let rows = "";
+
+    currentOrder.forEach(item => {
+        const lineTotal = item.quantity * item.product.price;
+        totalQuantity += item.quantity;
+
+        rows += `
+            <tr>
+                <td>${item.product.code}</td>
+                <td>${item.product.category}</td>
+                <td>${item.product.name}</td>
+                <td>${item.product.color}</td>
+                <td>${item.product.size}</td>
+                <td style="text-align:center;">${item.quantity}</td>
+                <td style="text-align:right;">€${item.product.price.toFixed(2)}</td>
+                <td style="text-align:right;">€${lineTotal.toFixed(2)}</td>
+            </tr>
+        `;
+    });
+
+    return `
+
+                
+        <table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 20px auto;">
+            <tr>
+                <td align="center">
+
+                    <a href="https://armywear.gr" target="_blank">
+                        <img 
+                            src="https://www.armywear.gr/images/armywear_6_logo_sm.jpg"
+                            alt="ARMYWEAR Logo"
+                            width="220"
+                            style="display:block; border:0;"
+                        >
+                    </a>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" style="padding-top:8px;">
+
+                    <a 
+                        href="https://armywear.gr"
+                        target="_blank"
+                        style="
+                            font-size:14px;
+                            font-weight:bold;
+                            color:#1f2937;
+                            text-decoration:none;
+                            font-family:Arial,sans-serif;
+                        "
+                    >
+                        www.armywear.gr
+                    </a>
+
+                </td>
+            </tr>
+        </table>
+
+        <p>Σας ευχαριστούμε πολύ για την παραγγελία σας.</p> 
+        <p>Η παραγγελία σας βρίσκεται υπό επεξεργασία και θα ενημερωθείτε για την πορεία της τηλεφωνικά ή μέσω ηλεκτρονικού ταχυδρομείου (email).</p>
+
+        <p>Για οποιαδήποτε επιπλέον πληροφορία χρειαστείτε, μη διστάσετε να επικοινωνήσετε μαζί μας.</p>
+        <p> Θα χαρούμε να σας εξυπηρετήσουμε!</p>
+        
+        <h3>ΠΑΡΑΓΓΕΛΙΑ ΠΡΟΪΟΝΤΩΝ</h3>
+
+        <p><strong>Αριθμός Παραγγελίας:</strong> ${currentOrderRef}</p>        
+        <p><strong>Customer ID:</strong> ${document.getElementById("customerId").value.trim() || "-"}</p>
+        <p><strong>Ημερομηνία:</strong> ${new Date().toLocaleDateString("el-GR")}</p>
+
+        <h4>Στοιχεία Πελάτη</h4>
+        <p><strong>Επωνυμία:</strong> ${customer.company}</p>
+        <p><strong>ΑΦΜ:</strong> ${customer.vat}</p>
+        <p><strong>Διεύθυνση:</strong> ${customer.address}</p>
+        <p><strong>Τηλέφωνο:</strong> ${customer.phone}</p>
+        <p><strong>Email:</strong> ${customer.email}</p>
+
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+            <thead>
+                <tr style="background:#1f2937; color:white;">
+                    <th>Κωδικός</th>
+                    <th>Κατηγορία</th>
+                    <th>Προϊόν</th>
+                    <th>Χρώμα</th>
+                    <th>Μέγεθος</th>
+                    <th>Ποσότητα</th>
+                    <th>Τιμή</th>
+                    <th>Σύνολο</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rows}
+                <tr>
+                    <td colspan="5" style="text-align:right;"><strong>Σύνολο Ποσότητας</strong></td>
+                    <td style="text-align:center;"><strong>${totalQuantity}</strong></td>
+                    <td colspan="2"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>Καθαρό:</strong> €${totals.net.toFixed(2)}</p>
+        <p><strong>ΦΠΑ:</strong> €${totals.vat.toFixed(2)}</p>
+        <p><strong>Σύνολο:</strong> €${totals.grand.toFixed(2)}</p>
+
+        <h4>Σχόλια Πελάτη</h4>
+        <p>${customer.comments || "-"}</p>
+
+        <h4>Όροι Παραγγελίας</h4>
+        <p>${orderTerms || "-"}</p>
+    `;
+}
+
+async function submitOrderToSheet() {
+    if (!validateCustomer()) {
+        return;
+    }
+
+    if (currentOrder.length === 0) {
+        alert("Δεν υπάρχουν προϊόντα στην παραγγελία.");
+        return;
+    }
+
+    if (!currentOrderRef) {
+        currentOrderRef = generateOrderRef();
+    }
+
+    if (!invoiceVisible()) {
+        generateInvoice();
+    }
+
+    const sendBtn = document.getElementById("sendEmailBtn");
+    const sendingMessage = document.getElementById("sendingMessage");
+
+    let customerId = document.getElementById("customerId").value.trim();
+    
+    if (!customerId) {
+        customerId = "CUST-" + Date.now();
+        document.getElementById("customerId").value = customerId;
+    }
+
+
+
+    try {
+        sendBtn.disabled = true;
+        sendBtn.textContent = "Αποστολή...";
+        sendingMessage.style.display = "block";
+        sendingMessage.innerHTML = "⏳ Η παραγγελία αποστέλλεται... Παρακαλώ περιμένετε.";        
+
+        
+
+        const payload = {
+            action: "submitOrder",           
+
+            customer: {
+                ...getCustomerData(),
+                customerId: customerId
+            },
+            order: currentOrder,
+            totals: {
+                netTotal: calculateTotals().net,
+                vatAmount: calculateTotals().vat,
+                grandTotal: calculateTotals().grand
+            },
+            emailBody: buildEmailBody(),
+
+            pdfHtml: buildPdfHtml(),
+            customerEmailHtml: buildCustomerEmailHtml(),
+            supplierEmailHtml: buildEmailHtml(),
+
+            orderRef: currentOrderRef
+        };
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(payload)
+        });
+
+        const totalQty = currentOrder.reduce((sum, item) => sum + item.quantity, 0);
+
+        setStatus(`
+            
+            ✅ Η παραγγελία στάλθηκε.<br><br>
+            <strong>Αριθμός Παραγγελίας:</strong> ${currentOrderRef}<br>
+            <strong>Ημερομηνία:</strong> ${new Date().toLocaleDateString("el-GR")}<br>
+            <strong>Σύνολο Ποσότητας:</strong> ${totalQty}
+        `);
+      
+
+        alert(
+            "Η παραγγελία στάλθηκε.\n\n" +
+            "Αριθμός Παραγγελίας: " + currentOrderRef + "\n" +
+            "Ημερομηνία: " + new Date().toLocaleDateString("el-GR") + "\n" +
+            "Σύνολο Ποσότητας: " + totalQty
+        );
+
+    } catch (error) {
+        console.error(error);
+
+        setStatus("❌ Σφάλμα αποστολής.");
+        alert("Σφάλμα αποστολής.");
+
+    } finally {
+        sendBtn.disabled = false;
+        
+        sendBtn.textContent = "Αποστολή Παραγγελίας";
+
+        setTimeout(() => {
+            sendingMessage.style.display = "none";
+        }, 100);
+
+    }
+}
+
+window.onload = function() {
+    loadAllData();
+};
+</script>
+
+</body>
+</html>
