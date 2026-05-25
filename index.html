@@ -645,104 +645,103 @@
       </p>
     </section>
 
-    <!-- ===== Submit handler — send ONCE; block Nicepage handlers; support Enter key ===== -->
     <script>
-      (function () {
-        const form   = document.getElementById('contactForm');
-        const button = document.getElementById('submitBtn');
-        const status = document.getElementById('formStatus');
-
-        function showStatus(type, msg, seconds = 5) {
-          status.textContent = msg;
-          status.className = type === 'ok' ? 'ok' : 'err';
-          status.style.display = 'block';
-          if (seconds > 0) {
-            setTimeout(() => { status.style.display = 'none'; }, seconds * 1000);
-          }
-        }
-
-        
-
-		let sending = false;
-
-		async function sendOnce() {
-		  if (sending) return;
-		
-		  const email = form.email.value.trim();
-		  const name = form.name.value.trim();
-		  const phone = form.phone.value.trim();
-		  const message = form.message.value.trim();
-		
-		  if (!email || !name || !phone || !message) {
-			showStatus(
-			  'err',
-			  'Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.',
-			  6
-			);
-			return;
-		  }
-		
-		  sending = true;
-		  showStatus('ok', 'Αποστολή…', 0);
-		
-		  try {
-			const data = new FormData(form);
-		
-			await fetch(form.action, {
-			  method: 'POST',
-			  body: data,
-			  mode: 'no-cors'
-			});
-		
-			showStatus(
-			  'ok',
-			  'Το μήνυμα υποβλήθηκε. Ελέγξτε το email σας.',
-			  6
-			);
-		
-			form.reset();
-		
-		  } catch (err) {
-			console.error(err);
-		
-			showStatus(
-			  'err',
-			  'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.',
-			  7
-			);
-		
-		  } finally {
-			sending = false;
-		  }
-		}
-
-		  
-
-		  
-
-        if (button) {
-          // Handle button clicks ourselves and block Nicepage’s auto handler
-          button.addEventListener('click', function (e) {
-            e.preventDefault();
-            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-            e.stopPropagation();
-            if (!form) return;
-            sendOnce();
-          });
-        }
-
-        if (form) {
-          // Also handle Enter-key submits; block all other submit handlers
-          form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-            e.stopPropagation();
-            sendOnce();
-          });
-        }
-      })();
-    </script>
-    <!-- ===== End submit handler ===== -->
+	(function () {
+	    const form = document.getElementById("contactForm");
+	    const button = document.getElementById("submitBtn");
+	    const status = document.getElementById("formStatus");
+	
+	    function showStatus(type, msg, seconds = 5) {
+	        status.textContent = msg;
+	        status.className = type === "ok" ? "ok" : "err";
+	        status.style.display = "block";
+	
+	        if (seconds > 0) {
+	            setTimeout(() => {
+	                status.style.display = "none";
+	            }, seconds * 1000);
+	        }
+	    }
+	
+	    let sending = false;
+	
+	    async function sendOnce() {
+	        if (sending) return;
+	
+	        const email = form.email.value.trim();
+	        const name = form.name.value.trim();
+	        const phone = form.phone.value.trim();
+	        const message = form.message.value.trim();
+	
+	        if (!email || !name || !phone || !message) {
+	            showStatus(
+	                "err",
+	                "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.",
+	                6
+	            );
+	            return;
+	        }
+	
+	        sending = true;
+	        showStatus("ok", "Αποστολή…", 0);
+	
+	        try {
+	            const data = new FormData(form);
+	
+	            await fetch(form.action, {
+	                method: "POST",
+	                body: data,
+	                mode: "no-cors"
+	            });
+	
+	            showStatus(
+	                "ok",
+	                "Το μήνυμα υποβλήθηκε. Ελέγξτε το email σας.",
+	                6
+	            );
+	
+	            form.reset();
+	
+	        } catch (err) {
+	            console.error(err);
+	            showStatus(
+	                "err",
+	                "Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.",
+	                7
+	            );
+	
+	        } finally {
+	            sending = false;
+	        }
+	    }
+	
+	    if (button) {
+	        button.addEventListener("click", function (e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	
+	            if (e.stopImmediatePropagation) {
+	                e.stopImmediatePropagation();
+	            }
+	
+	            sendOnce();
+	        }, true);
+	    }
+	
+	    if (form) {
+	        form.addEventListener("submit", function (e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	
+	            if (e.stopImmediatePropagation) {
+	                e.stopImmediatePropagation();
+	            }
+	
+	            sendOnce();
+	        }, true);
+	    }
+	})();
+	</script>
 
     <!-- ===== NEW: Unified lightbox for ALL gallery images + Close button + back-button handling ===== -->
     <script>
