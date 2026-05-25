@@ -661,59 +661,64 @@
           }
         }
 
-        let sending = false;
-        async function sendOnce() {
-          if (sending) return;
-          sending = true;
-          showStatus('ok', 'Αποστολή…', 0);
-          try {
+        
 
-			// Required fields validation
-	        const email = form.email.value.trim();
-	        const name = form.name.value.trim();
-	        const phone = form.phone.value.trim();
-	        const message = form.message.value.trim();
-	
-	        if (!email || !name || !phone || !message) {
-	
-	            showStatus(
-	                'err',
-	                'Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.',
-	                6
-	            );
+		let sending = false;
 
-				sending = false;
-				
-	            return;
-	        }  
-			  
-			  			  
-            const data = new FormData(form);
-			  
-            // await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
-            // showStatus('ok', 'Ευχαριστούμε! Το μήνυμά σας εστάλη.', 5);
-
-			await fetch(form.action, {
-			    method: 'POST',
-			    body: data,
-			    mode: 'no-cors'
-			});
-			
+		async function sendOnce() {
+		  if (sending) return;
+		
+		  const email = form.email.value.trim();
+		  const name = form.name.value.trim();
+		  const phone = form.phone.value.trim();
+		  const message = form.message.value.trim();
+		
+		  if (!email || !name || !phone || !message) {
 			showStatus(
-			    'ok',
-			    'Το μήνυμα υποβλήθηκε. Αν δεν το λάβετε, ελέγξτε το Apps Script / Gmail.',
-			    6
+			  'err',
+			  'Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.',
+			  6
 			);
+			return;
+		  }
+		
+		  sending = true;
+		  showStatus('ok', 'Αποστολή…', 0);
+		
+		  try {
+			const data = new FormData(form);
+		
+			await fetch(form.action, {
+			  method: 'POST',
+			  body: data,
+			  mode: 'no-cors'
+			});
+		
+			showStatus(
+			  'ok',
+			  'Το μήνυμα υποβλήθηκε. Ελέγξτε το email σας.',
+			  6
+			);
+		
+			form.reset();
+		
+		  } catch (err) {
+			console.error(err);
+		
+			showStatus(
+			  'err',
+			  'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.',
+			  7
+			);
+		
+		  } finally {
+			sending = false;
+		  }
+		}
 
-			  
-            form.reset();
-          } catch (err) {
-            console.error(err);
-            showStatus('err', 'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.', 7);
-          } finally {
-            sending = false;
-          }
-        }
+		  
+
+		  
 
         if (button) {
           // Handle button clicks ourselves and block Nicepage’s auto handler
