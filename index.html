@@ -645,63 +645,26 @@
       </p>
     </section>
 
-  	<script>
+	<script>
 	document.addEventListener("DOMContentLoaded", function () {
+	
 	    const form = document.getElementById("contactForm");
-	    const status = document.getElementById("formStatus");
+	    const button = document.getElementById("submitBtn");
 	
-	    function showStatus(type, msg) {
-	        status.textContent = msg;
-	        status.className = type === "ok" ? "ok" : "err";
-	        status.style.display = "block";
-	    }
+	    if (!form || !button) return;
 	
-	    async function submitContactForm(e) {
+	    button.addEventListener("click", function (e) {
 	        e.preventDefault();
-	        e.stopPropagation();
 	
-	        const payload = {
-	            name: form.elements["name"].value.trim(),
-	            email: form.elements["email"].value.trim(),
-	            phone: form.elements["phone"].value.trim(),
-	            address: form.elements["address"].value.trim(),
-	            message: form.elements["message"].value.trim()
-	        };
+	        form.method = "POST";
+	        form.target = "_blank";
 	
-	        if (!payload.name || !payload.email || !payload.phone || !payload.message) {
-	            showStatus("err", "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.");
-	            return;
-	        }
+	        form.submit();
+	    });
 	
-	        showStatus("ok", "Αποστολή...");
-	
-	   
-
-			await fetch(form.action, {
-			    method: "POST",
-			    mode: "no-cors",
-			    headers: {
-			        "Content-Type": "text/plain;charset=utf-8"
-			    },
-			    body: JSON.stringify(payload)
-			});
-	
-	        showStatus("ok", "Το μήνυμά σας υποβλήθηκε.");
-	        form.reset();
-	    }
-	
-	    document.addEventListener("click", function (e) {
-	        const btn = e.target.closest("#submitBtn");
-	        if (btn) {
-	            submitContactForm(e);
-	        }
-	    }, true);
-	
-	    form.addEventListener("submit", submitContactForm, true);
 	});
 	</script>
-	
-
+				
     <!-- ===== NEW: Unified lightbox for ALL gallery images + Close button + back-button handling ===== -->
     <script>
       (function () {
