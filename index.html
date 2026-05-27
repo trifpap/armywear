@@ -651,23 +651,47 @@
 	
 	    const form = document.getElementById("contactForm");
 	    const button = document.getElementById("submitBtn");
+	    const status = document.getElementById("formStatus");
 	
-	    if (!form || !button) return;
+	    if (!form || !button || !status) return;
+	
+	    let submitted = false;
 	
 	    button.addEventListener("click", function (e) {
-	
 	        e.preventDefault();
+	        e.stopPropagation();
+	
+	        if (!form.checkValidity()) {
+	            form.reportValidity();
+	            return;
+	        }
+	
+	        submitted = true;
 	
 	        form.method = "POST";
 	        form.target = "hidden_iframe";
 	
-	        form.submit();
+	        status.style.display = "block";
+	        status.className = "ok";
+	        status.innerHTML = "Αποστολή...";
 	
-	        document.getElementById("formStatus").innerHTML =
-	            "Το μήνυμά σας εστάλη επιτυχώς.";
-	
-	        form.reset();
+	        HTMLFormElement.prototype.submit.call(form);
 	    });
+	
+	    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+	
+	    if (iframe) {
+	        iframe.addEventListener("load", function () {
+	            if (!submitted) return;
+	
+	            status.style.display = "block";
+	            status.className = "ok";
+	            status.innerHTML = "Το μήνυμά σας εστάλη επιτυχώς.";
+	
+	            form.reset();
+	            submitted = false;
+	        });
+	    }
 	
 	});
 	</script>
