@@ -610,7 +610,7 @@
                           <div class="u-form-send-message u-form-send-success">Thank you! Your message has been sent.</div>
                           <div class="u-form-send-error u-form-send-message">Unable to send your message. Please fix errors then try again.</div>
                         </form>
-						  <iframe name="hidden_iframe" style="display:none;"></iframe>
+						
                         <!-- ===== End replaced contact form ===== -->
                       </div>
                     </div>
@@ -646,6 +646,8 @@
       </p>
     </section>
 
+	<iframe name="hidden_iframe" style="display:none;"></iframe>
+
 	<script>
 	document.addEventListener("DOMContentLoaded", function () {
 	
@@ -654,8 +656,6 @@
 	    const status = document.getElementById("formStatus");
 	
 	    if (!form || !button || !status) return;
-	
-	    let submitted = false;
 	
 	    button.addEventListener("click", function (e) {
 	        e.preventDefault();
@@ -666,8 +666,6 @@
 	            return;
 	        }
 	
-	        submitted = true;
-	
 	        form.method = "POST";
 	        form.target = "hidden_iframe";
 	
@@ -676,22 +674,14 @@
 	        status.innerHTML = "Αποστολή...";
 	
 	        HTMLFormElement.prototype.submit.call(form);
-	    });
 	
-	    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
-	
-	    if (iframe) {
-	        iframe.addEventListener("load", function () {
-	            if (!submitted) return;
-	
+	        setTimeout(function () {
 	            status.style.display = "block";
 	            status.className = "ok";
 	            status.innerHTML = "Το μήνυμά σας εστάλη επιτυχώς.";
-	
 	            form.reset();
-	            submitted = false;
-	        });
-	    }
+	        }, 1200);
+	    });
 	
 	});
 	</script>
