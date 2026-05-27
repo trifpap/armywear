@@ -691,7 +691,14 @@
 	            iframe = document.createElement("iframe");
 	            iframe.name = "hiddenSubmitFrame";
 	            iframe.id = "hiddenSubmitFrame";
-	            iframe.style.display = "none";
+	          
+
+				iframe.style.display = "block";
+				iframe.style.width = "100%";
+				iframe.style.height = "180px";
+				iframe.style.border = "2px solid #ccc";
+				iframe.style.marginTop = "15px";
+				
 	            document.body.appendChild(iframe);
 	        }
 	
@@ -702,7 +709,8 @@
 	
 	        HTMLFormElement.prototype.submit.call(form);
 	
-	        showStatus("ok", "Το μήνυμά σας εστάλη.", 6);
+	    
+			showStatus("ok", "Η φόρμα υποβλήθηκε. Περιμένετε επιβεβαίωση από το Apps Script...", 6);
 	
 	        setTimeout(function () {
 	            form.reset();
