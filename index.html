@@ -559,7 +559,7 @@
                       <div class="u-align-left u-expanded-width u-form u-form-1">
                         <!-- ===== Contact form replaced with logic from Contact.html ===== -->
                       <form id="contactForm"
-                              action="https://script.google.com/macros/s/AKfycbwTyds18dyBYtL08AXjimh7uDxX-AOpZ5B0Qufn76XzIRltxu56Wxkjy0g54LUy3_okGw/exec"
+                              action="https://script.google.com/macros/s/AKfycbxP_wcvVt8rUvuY-X9x5pJ7Cx0kCpUXrH46zUtY6Xew7XkrMlSJSyQbEqUQ0GGH5p7azA/exec"
 							   
                               method="POST"
                               class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form"
@@ -657,7 +657,9 @@
 	    if (!form || !button || !status) return;
 	
 	    button.addEventListener("click", function (e) {
+	
 	        e.preventDefault();
+	        e.stopPropagation();
 	
 	        const email = form.elements["email"].value.trim();
 	        const name = form.elements["name"].value.trim();
@@ -665,20 +667,35 @@
 	        const message = form.elements["message"].value.trim();
 	
 	        if (!email || !name || !phone || !message) {
+	
 	            status.style.display = "block";
 	            status.className = "err";
-	            status.innerHTML = "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.";
+	            status.innerHTML =
+	                "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.";
+	
 	            return;
 	        }
+	
+	        status.style.display = "block";
+	        status.className = "ok";
+	        status.innerHTML = "Αποστολή...";
 	
 	        form.method = "POST";
 	        form.target = "_blank";
 	
-	        status.style.display = "block";
-	        status.className = "ok";
-	        status.innerHTML = "Η φόρμα υποβάλλεται...";
+	        HTMLFormElement.prototype.submit.call(form);
 	
-	        form.submit();
+	        setTimeout(function () {
+	
+	            status.style.display = "block";
+	            status.className = "ok";
+	            status.innerHTML =
+	                "Το μήνυμά σας υποβλήθηκε. Ελέγξτε το παράθυρο που άνοιξε για OK.";
+	
+	            form.reset();
+	
+	        }, 1000);
+	
 	    });
 	
 	});
