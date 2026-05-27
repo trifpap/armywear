@@ -645,11 +645,16 @@
       </p>
     </section>
 
-   <script>
-	(function () {
+    <script>
+	document.addEventListener("DOMContentLoaded", function () {
+	
 	    const form = document.getElementById("contactForm");
-	    const button = document.getElementById("submitBtn");
 	    const status = document.getElementById("formStatus");
+	
+	    if (!form) {
+	        alert("Contact form not found.");
+	        return;
+	    }
 	
 	    function showStatus(type, msg, seconds = 5) {
 	        status.textContent = msg;
@@ -657,37 +662,28 @@
 	        status.style.display = "block";
 	
 	        if (seconds > 0) {
-	            setTimeout(() => {
+	            setTimeout(function () {
 	                status.style.display = "none";
 	            }, seconds * 1000);
 	        }
 	    }
 	
-	    function sendOnce(e) {
+	    function submitContactForm(e) {
 	        if (e) {
 	            e.preventDefault();
 	            e.stopPropagation();
-	
-	            if (e.stopImmediatePropagation) {
-	                e.stopImmediatePropagation();
-	            }
+	            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
 	        }
 	
-	        const email = form.email.value.trim();
-	        const name = form.name.value.trim();
-	        const phone = form.phone.value.trim();
-	        const message = form.message.value.trim();
+	        const email = form.elements["email"].value.trim();
+	        const name = form.elements["name"].value.trim();
+	        const phone = form.elements["phone"].value.trim();
+	        const message = form.elements["message"].value.trim();
 	
 	        if (!email || !name || !phone || !message) {
-	            showStatus(
-	                "err",
-	                "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.",
-	                6
-	            );
-	            return;
+	            showStatus("err", "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.", 6);
+	            return false;
 	        }
-	
-	        showStatus("ok", "Αποστολή…", 0);
 	
 	        let iframe = document.getElementById("hiddenSubmitFrame");
 	
@@ -702,25 +698,30 @@
 	        form.target = "hiddenSubmitFrame";
 	        form.method = "POST";
 	
-	        form.submit();
+	        showStatus("ok", "Αποστολή…", 0);
 	
-	        showStatus(
-	            "ok",
-	            "Το μήνυμα υποβλήθηκε. Ελέγξτε το email σας.",
-	            6
-	        );
+	        HTMLFormElement.prototype.submit.call(form);
 	
-	        form.reset();
+	        showStatus("ok", "Το μήνυμα υποβλήθηκε. Ελέγξτε το email σας.", 6);
+	
+	        setTimeout(function () {
+	            form.reset();
+	        }, 500);
+	
+	        return false;
 	    }
 	
-	    if (button) {
-	        button.addEventListener("click", sendOnce, true);
-	    }
+	    document.addEventListener("click", function (e) {
+	        const btn = e.target.closest("#submitBtn");
 	
-	    if (form) {
-	        form.addEventListener("submit", sendOnce, true);
-	    }
-	})();
+	        if (btn) {
+	            submitContactForm(e);
+	        }
+	    }, true);
+	
+	    form.addEventListener("submit", submitContactForm, true);
+	
+	});
 	</script>
 
     <!-- ===== NEW: Unified lightbox for ALL gallery images + Close button + back-button handling ===== -->
