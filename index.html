@@ -661,8 +661,15 @@
 	        e.preventDefault();
 	        e.stopPropagation();
 	
-	        if (!form.checkValidity()) {
-	            form.reportValidity();
+	        const email = form.elements["email"].value.trim();
+	        const name = form.elements["name"].value.trim();
+	        const phone = form.elements["phone"].value.trim();
+	        const message = form.elements["message"].value.trim();
+	
+	        if (!email || !name || !phone || !message) {
+	            status.style.display = "block";
+	            status.className = "err";
+	            status.innerHTML = "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.";
 	            return;
 	        }
 	
@@ -676,7 +683,6 @@
 	        HTMLFormElement.prototype.submit.call(form);
 	
 	        setTimeout(function () {
-	            status.style.display = "block";
 	            status.className = "ok";
 	            status.innerHTML = "Το μήνυμά σας εστάλη επιτυχώς.";
 	            form.reset();
