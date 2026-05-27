@@ -694,6 +694,8 @@
 	
 	        const script = document.createElement("script");
 	        script.id = callbackName;
+
+			const appsScriptUrl = form.action.trim();
 	
 	        script.src =
 	            form.action +
@@ -705,9 +707,16 @@
 	            "&message=" + encodeURIComponent(payload.message) +
 	            "&t=" + Date.now();
 	
-	        script.onerror = function() {
-	            showStatus("err", "Δεν ήταν δυνατή η σύνδεση με το Apps Script.");
-	        };
+	   
+
+			script.onerror = function() {
+			    showStatus(
+			        "err",
+			        "Δεν ήταν δυνατή η σύνδεση με το Apps Script. Ελέγξτε αν το Web App είναι δημοσιευμένο ως Anyone και αν το URL είναι /exec."
+			    );
+			
+			    console.error("Apps Script connection failed:", script.src);
+			};
 	
 	        document.body.appendChild(script);
 	
