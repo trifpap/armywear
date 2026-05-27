@@ -558,7 +558,7 @@
                       <p class="u-text u-text-default u-text-11"> Θέλετε να ρωτήσετε κάτι ή να μας στείλετε τα σχόλια σας; Συμπληρώστε τη φόρμα για να επικοινωνήσετε μαζί μας. </p>
                       <div class="u-align-left u-expanded-width u-form u-form-1">
                         <!-- ===== Contact form replaced with logic from Contact.html ===== -->
-                       <form id="contactForm" target="_blank"
+                      <form id="contactForm"
                               action="https://script.google.com/macros/s/AKfycbwTyds18dyBYtL08AXjimh7uDxX-AOpZ5B0Qufn76XzIRltxu56Wxkjy0g54LUy3_okGw/exec"
 							   
                               method="POST"
@@ -610,6 +610,7 @@
                           <div class="u-form-send-message u-form-send-success">Thank you! Your message has been sent.</div>
                           <div class="u-form-send-error u-form-send-message">Unable to send your message. Please fix errors then try again.</div>
                         </form>
+						  <iframe name="hidden_iframe" style="display:none;"></iframe>
                         <!-- ===== End replaced contact form ===== -->
                       </div>
                     </div>
@@ -654,12 +655,18 @@
 	    if (!form || !button) return;
 	
 	    button.addEventListener("click", function (e) {
+	
 	        e.preventDefault();
 	
 	        form.method = "POST";
-	        form.target = "_blank";
+	        form.target = "hidden_iframe";
 	
 	        form.submit();
+	
+	        document.getElementById("formStatus").innerHTML =
+	            "Το μήνυμά σας εστάλη επιτυχώς.";
+	
+	        form.reset();
 	    });
 	
 	});
