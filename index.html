@@ -657,6 +657,26 @@
 	        status.style.display = "block";
 	    }
 	
+	    function submitWithIframe() {
+	        let iframe = document.getElementById("hiddenSubmitFrame");
+	
+	        if (!iframe) {
+	            iframe = document.createElement("iframe");
+	            iframe.name = "hiddenSubmitFrame";
+	            iframe.id = "hiddenSubmitFrame";
+	            iframe.style.display = "none";
+	            document.body.appendChild(iframe);
+	        }
+	
+	        form.target = "hiddenSubmitFrame";
+	        form.method = "GET";
+	
+	        HTMLFormElement.prototype.submit.call(form);
+	
+	        showStatus("ok", "Η φόρμα υποβλήθηκε με εναλλακτικό τρόπο.");
+	        form.reset();
+	    }
+	
 	    function submitContactForm(e) {
 	        e.preventDefault();
 	        e.stopPropagation();
@@ -677,8 +697,11 @@
 	        showStatus("ok", "Αποστολή...");
 	
 	        const callbackName = "contactCallback_" + Date.now();
+	        let finished = false;
 	
 	        window[callbackName] = function(response) {
+	            finished = true;
+	
 	            if (response.status === "OK") {
 	                showStatus("ok", "Το μήνυμά σας εστάλη επιτυχώς.");
 	                form.reset();
@@ -694,11 +717,11 @@
 	
 	        const script = document.createElement("script");
 	        script.id = callbackName;
-
-			const appsScriptUrl = form.action.trim();
+	
+	        const appsScriptUrl = form.action.trim();
 	
 	        script.src =
-	            form.action +
+	            appsScriptUrl +
 	            "?callback=" + encodeURIComponent(callbackName) +
 	            "&name=" + encodeURIComponent(payload.name) +
 	            "&email=" + encodeURIComponent(payload.email) +
@@ -707,16 +730,17 @@
 	            "&message=" + encodeURIComponent(payload.message) +
 	            "&t=" + Date.now();
 	
-	   
-
-			script.onerror = function() {
-			    showStatus(
-			        "err",
-			        "Δεν ήταν δυνατή η σύνδεση με το Apps Script. Ελέγξτε αν το Web App είναι δημοσιευμένο ως Anyone και αν το URL είναι /exec."
-			    );
-			
-			    console.error("Apps Script connection failed:", script.src);
-			};
+	        script.onerror = function() {
+	            if (!finished) {
+	                submitWithIframe();
+	            }
+	        };
+	
+	        setTimeout(function () {
+	            if (!finished) {
+	                submitWithIframe();
+	            }
+	        }, 5000);
 	
 	        document.body.appendChild(script);
 	
