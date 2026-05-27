@@ -645,7 +645,7 @@
       </p>
     </section>
 
-    <script>
+   <script>
 	(function () {
 	    const form = document.getElementById("contactForm");
 	    const button = document.getElementById("submitBtn");
@@ -663,10 +663,15 @@
 	        }
 	    }
 	
-	    let sending = false;
+	    function sendOnce(e) {
+	        if (e) {
+	            e.preventDefault();
+	            e.stopPropagation();
 	
-	    async function sendOnce() {
-	        if (sending) return;
+	            if (e.stopImmediatePropagation) {
+	                e.stopImmediatePropagation();
+	            }
+	        }
 	
 	        const email = form.email.value.trim();
 	        const name = form.name.value.trim();
@@ -682,63 +687,38 @@
 	            return;
 	        }
 	
-	        sending = true;
 	        showStatus("ok", "Αποστολή…", 0);
 	
-	        try {
-	            const data = new FormData(form);
+	        let iframe = document.getElementById("hiddenSubmitFrame");
 	
-	            await fetch(form.action, {
-	                method: "POST",
-	                body: data,
-	                mode: "no-cors"
-	            });
-	
-	            showStatus(
-	                "ok",
-	                "Το μήνυμα υποβλήθηκε. Ελέγξτε το email σας.",
-	                6
-	            );
-	
-	            form.reset();
-	
-	        } catch (err) {
-	            console.error(err);
-	            showStatus(
-	                "err",
-	                "Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.",
-	                7
-	            );
-	
-	        } finally {
-	            sending = false;
+	        if (!iframe) {
+	            iframe = document.createElement("iframe");
+	            iframe.name = "hiddenSubmitFrame";
+	            iframe.id = "hiddenSubmitFrame";
+	            iframe.style.display = "none";
+	            document.body.appendChild(iframe);
 	        }
+	
+	        form.target = "hiddenSubmitFrame";
+	        form.method = "POST";
+	
+	        form.submit();
+	
+	        showStatus(
+	            "ok",
+	            "Το μήνυμα υποβλήθηκε. Ελέγξτε το email σας.",
+	            6
+	        );
+	
+	        form.reset();
 	    }
 	
 	    if (button) {
-	        button.addEventListener("click", function (e) {
-	            e.preventDefault();
-	            e.stopPropagation();
-	
-	            if (e.stopImmediatePropagation) {
-	                e.stopImmediatePropagation();
-	            }
-	
-	            sendOnce();
-	        }, true);
+	        button.addEventListener("click", sendOnce, true);
 	    }
 	
 	    if (form) {
-	        form.addEventListener("submit", function (e) {
-	            e.preventDefault();
-	            e.stopPropagation();
-	
-	            if (e.stopImmediatePropagation) {
-	                e.stopImmediatePropagation();
-	            }
-	
-	            sendOnce();
-	        }, true);
+	        form.addEventListener("submit", sendOnce, true);
 	    }
 	})();
 	</script>
