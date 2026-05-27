@@ -559,7 +559,7 @@
                       <div class="u-align-left u-expanded-width u-form u-form-1">
                         <!-- ===== Contact form replaced with logic from Contact.html ===== -->
                        <form id="contactForm" target="_blank"
-                              action="https://script.google.com/macros/s/AKfycbwFBScAF7MP18nHQGPTBwxR5001_Ald2-9lD04V6lI3OS5YUwqpHyLdr-kZpMsOeACy/exec"
+                              action="https://script.google.com/macros/s/AKfycbyauoz6SBzuJWrkY6j2hLicg2IhFPmSZEKnuGBgXBAa6LkgGBwTWic7S_FI5L6-3vRhaQ/exec"
 							   
                               method="POST"
                               class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form"
@@ -657,29 +657,12 @@
 	        status.style.display = "block";
 	    }
 	
-	    function submitWithIframe() {
-	        let iframe = document.getElementById("hiddenSubmitFrame");
-	
-	        if (!iframe) {
-	            iframe = document.createElement("iframe");
-	            iframe.name = "hiddenSubmitFrame";
-	            iframe.id = "hiddenSubmitFrame";
-	            iframe.style.display = "none";
-	            document.body.appendChild(iframe);
-	        }
-	
-	        form.target = "hiddenSubmitFrame";
-	        form.method = "GET";
-	
-	        HTMLFormElement.prototype.submit.call(form);
-	
-	        showStatus("ok", "Η φόρμα υποβλήθηκε με εναλλακτικό τρόπο.");
-	        form.reset();
-	    }
-	
 	    function submitContactForm(e) {
-	        e.preventDefault();
-	        e.stopPropagation();
+	        if (e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+	        }
 	
 	        const payload = {
 	            name: form.elements["name"].value.trim(),
@@ -697,11 +680,8 @@
 	        showStatus("ok", "Αποστολή...");
 	
 	        const callbackName = "contactCallback_" + Date.now();
-	        let finished = false;
 	
-	        window[callbackName] = function(response) {
-	            finished = true;
-	
+	        window[callbackName] = function (response) {
 	            if (response.status === "OK") {
 	                showStatus("ok", "Το μήνυμά σας εστάλη επιτυχώς.");
 	                form.reset();
@@ -718,10 +698,8 @@
 	        const script = document.createElement("script");
 	        script.id = callbackName;
 	
-	        const appsScriptUrl = form.action.trim();
-	
 	        script.src =
-	            appsScriptUrl +
+	            form.action.trim() +
 	            "?callback=" + encodeURIComponent(callbackName) +
 	            "&name=" + encodeURIComponent(payload.name) +
 	            "&email=" + encodeURIComponent(payload.email) +
@@ -730,25 +708,18 @@
 	            "&message=" + encodeURIComponent(payload.message) +
 	            "&t=" + Date.now();
 	
-	        script.onerror = function() {
-	            if (!finished) {
-	                submitWithIframe();
-	            }
+	        script.onerror = function () {
+	            showStatus("err", "Δεν ήταν δυνατή η σύνδεση με το Apps Script.");
 	        };
-	
-	        setTimeout(function () {
-	            if (!finished) {
-	                submitWithIframe();
-	            }
-	        }, 5000);
 	
 	        document.body.appendChild(script);
 	
 	        return false;
 	    }
 	
-	    document.addEventListener("click", function(e) {
+	    document.addEventListener("click", function (e) {
 	        const btn = e.target.closest("#submitBtn");
+	
 	        if (btn) {
 	            submitContactForm(e);
 	        }
