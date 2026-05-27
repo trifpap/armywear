@@ -657,7 +657,7 @@
 	        status.style.display = "block";
 	    }
 	
-	    async function submitContactForm(e) {
+	    function submitContactForm(e) {
 	        e.preventDefault();
 	        e.stopPropagation();
 	
@@ -671,25 +671,50 @@
 	
 	        if (!payload.name || !payload.email || !payload.phone || !payload.message) {
 	            showStatus("err", "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.");
-	            return;
+	            return false;
 	        }
 	
 	        showStatus("ok", "Αποστολή...");
 	
-	        await fetch(form.action, {
-	            method: "POST",
-	            mode: "no-cors",
-	            headers: {
-	                "Content-Type": "text/plain;charset=utf-8"
-	            },
-	            body: JSON.stringify(payload)
-	        });
+	        const callbackName = "contactCallback_" + Date.now();
 	
-	        showStatus("ok", "Το μήνυμα υποβλήθηκε.");
-	        form.reset();
+	        window[callbackName] = function(response) {
+	            if (response.status === "OK") {
+	                showStatus("ok", "Το μήνυμά σας εστάλη επιτυχώς.");
+	                form.reset();
+	            } else {
+	                showStatus("err", "Σφάλμα αποστολής: " + response.message);
+	            }
+	
+	            delete window[callbackName];
+	
+	            const oldScript = document.getElementById(callbackName);
+	            if (oldScript) oldScript.remove();
+	        };
+	
+	        const script = document.createElement("script");
+	        script.id = callbackName;
+	
+	        script.src =
+	            form.action +
+	            "?callback=" + encodeURIComponent(callbackName) +
+	            "&name=" + encodeURIComponent(payload.name) +
+	            "&email=" + encodeURIComponent(payload.email) +
+	            "&phone=" + encodeURIComponent(payload.phone) +
+	            "&address=" + encodeURIComponent(payload.address) +
+	            "&message=" + encodeURIComponent(payload.message) +
+	            "&t=" + Date.now();
+	
+	        script.onerror = function() {
+	            showStatus("err", "Δεν ήταν δυνατή η σύνδεση με το Apps Script.");
+	        };
+	
+	        document.body.appendChild(script);
+	
+	        return false;
 	    }
 	
-	    document.addEventListener("click", function (e) {
+	    document.addEventListener("click", function(e) {
 	        const btn = e.target.closest("#submitBtn");
 	        if (btn) {
 	            submitContactForm(e);
