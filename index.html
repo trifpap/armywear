@@ -675,11 +675,16 @@
 	
 	        showStatus("ok", "Αποστολή...");
 	
-	        await fetch(form.action, {
-	            method: "POST",
-	            mode: "no-cors",
-	            body: JSON.stringify(payload)
-	        });
+	   
+
+			await fetch(form.action, {
+			    method: "POST",
+			    mode: "no-cors",
+			    headers: {
+			        "Content-Type": "text/plain;charset=utf-8"
+			    },
+			    body: JSON.stringify(payload)
+			});
 	
 	        showStatus("ok", "Το μήνυμά σας υποβλήθηκε.");
 	        form.reset();
