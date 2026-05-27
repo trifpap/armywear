@@ -647,8 +647,6 @@
       </p>
     </section>
 
-	<iframe name="hidden_iframe" style="display:none;"></iframe>
-
 	<script>
 	document.addEventListener("DOMContentLoaded", function () {
 	
@@ -660,7 +658,6 @@
 	
 	    button.addEventListener("click", function (e) {
 	        e.preventDefault();
-	        e.stopPropagation();
 	
 	        const email = form.elements["email"].value.trim();
 	        const name = form.elements["name"].value.trim();
@@ -675,19 +672,13 @@
 	        }
 	
 	        form.method = "POST";
-	        form.target = "hidden_iframe";
+	        form.target = "_blank";
 	
 	        status.style.display = "block";
 	        status.className = "ok";
-	        status.innerHTML = "Αποστολή...";
+	        status.innerHTML = "Η φόρμα υποβάλλεται...";
 	
-	        HTMLFormElement.prototype.submit.call(form);
-	
-	        setTimeout(function () {
-	            status.className = "ok";
-	            status.innerHTML = "Το μήνυμά σας εστάλη επιτυχώς.";
-	            form.reset();
-	        }, 1200);
+	        form.submit();
 	    });
 	
 	});
