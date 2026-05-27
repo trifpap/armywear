@@ -559,7 +559,7 @@
                       <div class="u-align-left u-expanded-width u-form u-form-1">
                         <!-- ===== Contact form replaced with logic from Contact.html ===== -->
                        <form id="contactForm" target="_blank"
-                              action="https://script.google.com/macros/s/AKfycbxtgpvhYFdYvlkCSMbTtIIKcVu86fneeCkMTQ9c1lVdG9IMo6-52OhUYy9oFIFlqBpx2Q/exec"
+                              action="https://script.google.com/macros/s/AKfycbwdK0C0w9SjfyHM57b5ncn0SPJLGxgRJvl26XiLQWzydFPjCjAhNLDBUKWrwp8BkzxOWA/exec"
 							   
                               method="POST"
                               class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form"
@@ -647,7 +647,6 @@
 
   	<script>
 	document.addEventListener("DOMContentLoaded", function () {
-	
 	    const form = document.getElementById("contactForm");
 	    const status = document.getElementById("formStatus");
 	
@@ -657,50 +656,33 @@
 	        status.style.display = "block";
 	    }
 	
-	    function submitContactForm(e) {
-	        if (e) {
-	            e.preventDefault();
-	            e.stopPropagation();
-	            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-	        }
+	    async function submitContactForm(e) {
+	        e.preventDefault();
+	        e.stopPropagation();
 	
-	        const name = form.elements["name"].value.trim();
-	        const email = form.elements["email"].value.trim();
-	        const phone = form.elements["phone"].value.trim();
-	        const address = form.elements["address"].value.trim();
-	        const message = form.elements["message"].value.trim();
+	        const payload = {
+	            name: form.elements["name"].value.trim(),
+	            email: form.elements["email"].value.trim(),
+	            phone: form.elements["phone"].value.trim(),
+	            address: form.elements["address"].value.trim(),
+	            message: form.elements["message"].value.trim()
+	        };
 	
-	        if (!name || !email || !phone || !message) {
+	        if (!payload.name || !payload.email || !payload.phone || !payload.message) {
 	            showStatus("err", "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.");
-	            return false;
+	            return;
 	        }
 	
 	        showStatus("ok", "Αποστολή...");
 	
-	        const url =
-	            form.action.trim() +
-	            "?name=" + encodeURIComponent(name) +
-	            "&email=" + encodeURIComponent(email) +
-	            "&phone=" + encodeURIComponent(phone) +
-	            "&address=" + encodeURIComponent(address) +
-	            "&message=" + encodeURIComponent(message) +
-	            "&t=" + Date.now();
+	        await fetch(form.action, {
+	            method: "POST",
+	            mode: "no-cors",
+	            body: JSON.stringify(payload)
+	        });
 	
-	        const img = new Image();
-	
-	        img.onload = function () {
-	            showStatus("ok", "Το μήνυμα υποβλήθηκε.");
-	            form.reset();
-	        };
-	
-	        img.onerror = function () {
-	            showStatus("ok", "Το μήνυμα υποβλήθηκε.");
-	            form.reset();
-	        };
-	
-	        img.src = url;
-	
-	        return false;
+	        showStatus("ok", "Το μήνυμά σας υποβλήθηκε.");
+	        form.reset();
 	    }
 	
 	    document.addEventListener("click", function (e) {
@@ -711,7 +693,6 @@
 	    }, true);
 	
 	    form.addEventListener("submit", submitContactForm, true);
-	
 	});
 	</script>
 	
