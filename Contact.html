@@ -154,7 +154,7 @@
 
               <div class="u-form-address u-form-group u-form-partition-factor-2 u-form-group-4">
                 <label for="address-be2d" class="u-label">Διεύθυνση</label>
-                <input type="text" placeholder="Enter your address" id="address-be2d" name="address" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required>
+                <input type="text" placeholder="Enter your address" id="address-be2d" name="address" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
               </div>
 
               <div class="u-form-group u-form-message">
@@ -252,45 +252,52 @@
 
   <!-- Submit handler: stay on page, show/hide confirmation, and suppress Nicepage banners -->
   <script>
-    (function () {
-      const form   = document.getElementById('contactForm');
-      const button = document.getElementById('submitBtn');
-      const status = document.getElementById('formStatus');
-
-      function showStatus(type, msg, seconds = 5) {
-        status.textContent = msg;
-        status.className = type === 'ok' ? 'ok' : 'err';
-        status.style.display = 'block';
-        if (seconds > 0) {
-          setTimeout(() => { status.style.display = 'none'; }, seconds * 1000);
-        }
-      }
-
-      // Make the link behave like a button
-      button.addEventListener('click', function (e) {
-        e.preventDefault();
-        form.requestSubmit();
+  document.addEventListener("DOMContentLoaded", function () {
+  
+      const form = document.getElementById("contactForm");
+      const button = document.getElementById("submitBtn");
+      const status = document.getElementById("formStatus");
+  
+      if (!form || !button || !status) return;
+  
+      button.addEventListener("click", function (e) {
+  
+          e.preventDefault();
+          e.stopPropagation();
+  
+          const email = form.elements["email"].value.trim();
+          const name = form.elements["name"].value.trim();
+          const phone = form.elements["phone"].value.trim();
+          const message = form.elements["message"].value.trim();
+  
+          if (!email || !name || !phone || !message) {
+              status.style.display = "block";
+              status.className = "err";
+              status.innerHTML =
+                  "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.";
+              return;
+          }
+  
+          status.style.display = "block";
+          status.className = "ok";
+          status.innerHTML = "Αποστολή...";
+  
+          form.method = "POST";
+          form.target = "_blank";
+  
+          HTMLFormElement.prototype.submit.call(form);
+  
+          setTimeout(function () {
+              status.style.display = "block";
+              status.className = "ok";
+              status.innerHTML =
+                  "Το μήνυμά σας υποβλήθηκε. Ελέγξτε το παράθυρο που άνοιξε για OK.";
+              form.reset();
+          }, 1000);
+  
       });
-
-      form.addEventListener('submit', async function (e) {
-        // Prevent default and stop Nicepage's internal submit listeners
-        e.preventDefault();
-        e.stopPropagation();
-        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-
-        showStatus('ok', 'Αποστολή…', 0);
-
-        try {
-          const data = new FormData(form);
-          await fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
-          showStatus('ok', 'Ευχαριστούμε! Το μήνυμά σας εστάλη.', 5);
-          form.reset();
-        } catch (err) {
-          console.error(err);
-          showStatus('err', 'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά.', 7);
-        }
-      });
-    })();
-  </script>
+  
+  });
+  </script> 
 </body>
 </html>
