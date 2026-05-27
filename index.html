@@ -559,7 +559,7 @@
                       <div class="u-align-left u-expanded-width u-form u-form-1">
                         <!-- ===== Contact form replaced with logic from Contact.html ===== -->
                        <form id="contactForm" target="_blank"
-                              action="https://script.google.com/macros/s/AKfycbyauoz6SBzuJWrkY6j2hLicg2IhFPmSZEKnuGBgXBAa6LkgGBwTWic7S_FI5L6-3vRhaQ/exec"
+                              action="https://script.google.com/macros/s/AKfycbxtgpvhYFdYvlkCSMbTtIIKcVu86fneeCkMTQ9c1lVdG9IMo6-52OhUYy9oFIFlqBpx2Q/exec"
 							   
                               method="POST"
                               class="u-clearfix u-form-spacing-28 u-form-vertical u-inner-form"
@@ -664,62 +664,47 @@
 	            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
 	        }
 	
-	        const payload = {
-	            name: form.elements["name"].value.trim(),
-	            email: form.elements["email"].value.trim(),
-	            phone: form.elements["phone"].value.trim(),
-	            address: form.elements["address"].value.trim(),
-	            message: form.elements["message"].value.trim()
-	        };
+	        const name = form.elements["name"].value.trim();
+	        const email = form.elements["email"].value.trim();
+	        const phone = form.elements["phone"].value.trim();
+	        const address = form.elements["address"].value.trim();
+	        const message = form.elements["message"].value.trim();
 	
-	        if (!payload.name || !payload.email || !payload.phone || !payload.message) {
+	        if (!name || !email || !phone || !message) {
 	            showStatus("err", "Παρακαλώ συμπληρώστε Email, Ονοματεπώνυμο, Τηλέφωνο και Μήνυμα.");
 	            return false;
 	        }
 	
 	        showStatus("ok", "Αποστολή...");
 	
-	        const callbackName = "contactCallback_" + Date.now();
-	
-	        window[callbackName] = function (response) {
-	            if (response.status === "OK") {
-	                showStatus("ok", "Το μήνυμά σας εστάλη επιτυχώς.");
-	                form.reset();
-	            } else {
-	                showStatus("err", "Σφάλμα αποστολής: " + response.message);
-	            }
-	
-	            delete window[callbackName];
-	
-	            const oldScript = document.getElementById(callbackName);
-	            if (oldScript) oldScript.remove();
-	        };
-	
-	        const script = document.createElement("script");
-	        script.id = callbackName;
-	
-	        script.src =
+	        const url =
 	            form.action.trim() +
-	            "?callback=" + encodeURIComponent(callbackName) +
-	            "&name=" + encodeURIComponent(payload.name) +
-	            "&email=" + encodeURIComponent(payload.email) +
-	            "&phone=" + encodeURIComponent(payload.phone) +
-	            "&address=" + encodeURIComponent(payload.address) +
-	            "&message=" + encodeURIComponent(payload.message) +
+	            "?name=" + encodeURIComponent(name) +
+	            "&email=" + encodeURIComponent(email) +
+	            "&phone=" + encodeURIComponent(phone) +
+	            "&address=" + encodeURIComponent(address) +
+	            "&message=" + encodeURIComponent(message) +
 	            "&t=" + Date.now();
 	
-	        script.onerror = function () {
-	            showStatus("err", "Δεν ήταν δυνατή η σύνδεση με το Apps Script.");
+	        const img = new Image();
+	
+	        img.onload = function () {
+	            showStatus("ok", "Το μήνυμα υποβλήθηκε.");
+	            form.reset();
 	        };
 	
-	        document.body.appendChild(script);
+	        img.onerror = function () {
+	            showStatus("ok", "Το μήνυμα υποβλήθηκε.");
+	            form.reset();
+	        };
+	
+	        img.src = url;
 	
 	        return false;
 	    }
 	
 	    document.addEventListener("click", function (e) {
 	        const btn = e.target.closest("#submitBtn");
-	
 	        if (btn) {
 	            submitContactForm(e);
 	        }
